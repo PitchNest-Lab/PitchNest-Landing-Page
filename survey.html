@@ -126,10 +126,10 @@
           next_pitch: formData.get('next_pitch')
         };
         
-        // Insert into Supabase 'waitlist' table
+        // Upsert into Supabase 'waitlist' table (updates if email already exists)
         const { data, error } = await supabaseClient
           .from('waitlist')
-          .insert([payload]);
+          .upsert([payload], { onConflict: 'email' });
           
         if (error) throw error;
         
