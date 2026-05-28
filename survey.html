@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIP Survey - PitchNest</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col items-center justify-center p-6">
+  
+  <div class="w-full max-w-lg bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-slate-100">
+    <div class="flex justify-center mb-8">
+      <div class="w-12 h-12 bg-sky-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-sky-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+    </div>
+    <div class="text-center mb-8">
+      <h1 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">You're on the list!</h1>
+      <p class="text-slate-500 text-sm">Answer a few quick questions to get priority access to the Live Pitch Room beta.</p>
+    </div>
+
+    <form id="surveyForm" class="space-y-6">
+      <div class="space-y-2">
+        <label class="block text-sm font-bold text-slate-700">What kind of pitching do you do most often?</label>
+        <select name="pitch_type" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-slate-700 appearance-none">
+          <option value="" disabled selected>Select an option...</option>
+          <option value="Startup Founder">Startup Founder</option>
+          <option value="Sales Professional">Sales Professional</option>
+          <option value="Creator / Freelancer">Creator / Freelancer</option>
+          <option value="Student / Hackathon Participant">Student / Hackathon Participant</option>
+        </select>
+      </div>
+
+      <div class="space-y-3">
+        <label class="block text-sm font-bold text-slate-700">What is your biggest frustration when practicing right now?</label>
+        <div class="space-y-2">
+          <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+            <input type="radio" name="frustration" value="Can't get objective feedback" required class="text-sky-500 focus:ring-sky-500">
+            <span class="text-sm text-slate-600">Can't get objective feedback</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+            <input type="radio" name="frustration" value="Struggle with timing and pacing" class="text-sky-500 focus:ring-sky-500">
+            <span class="text-sm text-slate-600">Struggle with timing and pacing</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+            <input type="radio" name="frustration" value="Get nervous and forget talking points" class="text-sky-500 focus:ring-sky-500">
+            <span class="text-sm text-slate-600">Get nervous and forget talking points</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+            <input type="radio" name="frustration" value="Other" class="text-sky-500 focus:ring-sky-500">
+            <span class="text-sm text-slate-600">Other</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block text-sm font-bold text-slate-700">When is your next high-stakes pitch or presentation?</label>
+        <select name="next_pitch" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-slate-700 appearance-none">
+          <option value="" disabled selected>Select timeframe...</option>
+          <option value="Within 7 days">Within 7 days</option>
+          <option value="This month">This month</option>
+          <option value="Just looking around for now">Just looking around for now</option>
+        </select>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" name="feedback_opt_in" required class="mt-1 rounded text-sky-500 focus:ring-sky-500 border-slate-300">
+          <span class="text-sm text-slate-600 leading-relaxed group-hover:text-slate-800 transition-colors">Are you willing to share 5 minutes of feedback in exchange for free early access?</span>
+        </label>
+      </div>
+
+      <button type="submit" id="submitBtn" class="w-full py-4 bg-sky-500 text-white font-bold rounded-xl hover:bg-sky-600 transition-all shadow-lg shadow-sky-500/30 flex items-center justify-center gap-2">
+        Submit VIP Survey
+      </button>
+    </form>
+
+    <div id="successMessage" class="hidden text-center py-8">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h2 class="text-2xl font-bold text-slate-900 mb-2">Thank you!</h2>
+      <p class="text-slate-500">Your VIP status has been confirmed. We'll be in touch soon.</p>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://oyztdulmyuklorbudcgb.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_CaLHgxSy5OIXZWdYmViKkw_VGopUFjN';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    document.getElementById('surveyForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const form = e.target;
+      const btn = document.getElementById('submitBtn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = 'Submitting...';
+      btn.disabled = true;
+      
+      try {
+        const formData = new FormData(form);
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = urlParams.get('email');
+        
+        const payload = {
+          email: email || 'unknown',
+          pitch_type: formData.get('pitch_type'),
+          frustration: formData.get('frustration'),
+          next_pitch: formData.get('next_pitch'),
+          feedback_opt_in: formData.get('feedback_opt_in') === 'on'
+        };
+        
+        // Insert into Supabase 'waitlist' table
+        const { data, error } = await supabaseClient
+          .from('waitlist')
+          .insert([payload]);
+          
+        if (error) throw error;
+        
+        // Hide form, show success
+        form.classList.add('hidden');
+        document.getElementById('successMessage').classList.remove('hidden');
+        
+      } catch (error) {
+        console.error('Error submitting survey:', error);
+        alert('There was a problem saving your survey. Please try again.');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

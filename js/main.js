@@ -136,8 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         if (response.ok) {
-          form.reset();
-          showToast();
+          const email = formData.get('email');
+          if (email) {
+            window.location.href = `survey.html?email=${encodeURIComponent(email)}`;
+          } else {
+            showToast(); // fallback if no email
+          }
         } else {
           alert('Oops! There was a problem submitting your form');
         }
