@@ -112,12 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Form submission & Toast
+  // 4. Form submission & VIP Survey Redirect
   const forms = document.querySelectorAll('.waitlist-form');
-  const toast = document.getElementById('toast');
   
   forms.forEach(form => {
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       
       const btn = form.querySelector('button[type="submit"]');
@@ -127,27 +126,18 @@ document.addEventListener('DOMContentLoaded', () => {
       
       try {
         const formData = new FormData(form);
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
+        const email = formData.get('email');
         
-        if (response.ok) {
-          const email = formData.get('email');
-          if (email) {
-            window.location.href = `survey.html?email=${encodeURIComponent(email)}`;
-          } else {
-            showToast(); // fallback if no email
-          }
+        if (email) {
+          // Immediately redirect to step 2 (Survey) instead of doing a backend POST
+          window.location.href = `survey.html?email=${encodeURIComponent(email)}`;
         } else {
-          alert('Oops! There was a problem submitting your form');
+          alert("Please enter a valid email address.");
+          btn.innerHTML = originalText;
+          btn.disabled = false;
         }
       } catch (error) {
-        alert('Oops! There was a problem submitting your form');
-      } finally {
+        console.error("Redirect error:", error);
         btn.innerHTML = originalText;
         btn.disabled = false;
       }
