@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PitchNest — AI-Powered Pitch Simulation for Startup Founders</title>
-  <meta name="description" content="Practice your startup pitch with AI investors that listen, ask tough questions, and give you real-time feedback. Join 2,800+ founders on the waitlist.">
-  <meta name="keywords" content="startup pitch, AI investor, pitch practice, VC simulation, fundraising, pitch deck, startup feedback">
-  <meta property="og:title" content="PitchNest — Pitch Your Startup to an AI Investor Panel">
-  <meta property="og:description" content="Practice your startup pitch with AI investors that listen, ask tough questions, and give you real-time feedback.">
+  <title>PitchNest — AI Fundraising Readiness & Startup Simulation Platform</title>
+  <meta name="description" content="Get investment-ready before real VCs ever see you. Present your startup to a multi-persona AI investor panel, get graded on TAM and clarity, and fix red flags.">
+  <meta name="keywords" content="startup fundraising, investor simulation, pitch practice, fundability score, VC readiness, pitch deck analyzer, health check audit">
+  <meta property="og:title" content="PitchNest — AI Startup Readiness & Simulation Platform">
+  <meta property="og:description" content="Get investment-ready before real investors ever see you. Practice with a multi-persona AI investor panel and analyze your deck.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pitchnest.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,26 +17,58 @@
 </head>
 <body>
 
+  <!-- Floating Theme Toggle -->
+  <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+    <svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l-.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+    </svg>
+    <svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+    </svg>
+  </button>
+
   <!-- Navbar -->
   <nav class="navbar" id="navbar">
     <div class="container navbar-inner">
       <a href="#" class="logo">
         <div class="logo-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
         </div>
         <span class="logo-text">PitchNest</span>
       </a>
       <div class="nav-links">
-        <a href="#features">Features</a>
+        <a href="#demo">Interactive Simulator</a>
+        <a href="#features">Platform Modules</a>
+        <a href="#health-check">Health Audit</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#testimonials">Stories</a>
         <a href="#faq">FAQ</a>
       </div>
-      <a href="#waitlist-hero" class="btn btn-primary btn-sm">Join Waitlist</a>
+      <a href="#waitlist-hero" class="btn btn-primary btn-sm desktop-only-btn">Get Early Access</a>
+      
+      <!-- Hamburger Toggle Button (mobile only) -->
+      <button class="hamburger-btn" id="hamburger-toggle" aria-label="Toggle Navigation Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer Dropdown -->
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-inner">
+        <a href="#demo" class="mobile-nav-link">Interactive Simulator</a>
+        <a href="#features" class="mobile-nav-link">Platform Modules</a>
+        <a href="#health-check" class="mobile-nav-link">Health Audit</a>
+        <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+        <a href="#testimonials" class="mobile-nav-link">Stories</a>
+        <a href="#faq" class="mobile-nav-link">FAQ</a>
+        <a href="#waitlist-hero" class="btn btn-primary mobile-nav-btn">Get Early Access</a>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- Hero Section -->
   <section class="hero" id="hero">
     <div class="hero-glow hero-glow-1"></div>
     <div class="hero-glow hero-glow-2"></div>
@@ -44,99 +76,637 @@
       <div class="hero-content reveal">
         <div class="badge">
           <span class="badge-dot"></span>
-          Live AI Simulation
+          Fundraising Readiness System
         </div>
         <h1 class="hero-title">
-          Pitch Your Startup to an <span class="gradient-text">AI Investor Panel</span>
+          Get Investment-Ready Before <span class="gradient-text">Real Investors</span> Ever See You
         </h1>
         <p class="hero-subtitle">
-          Present your vision to AI investors that listen, ask tough questions, and debate your idea in real-time. Get scored on delivery, clarity, and investor readiness.
+          Don't waste valuable investor leads. Upload your deck, present to our multi-persona AI investment committee, grade your fundability score, and fix red flags before you ever pitch a VC.
         </p>
-        <form class="waitlist-form" id="waitlist-hero" action="https://formspree.io/f/xqazpgkr" method="POST">
-          <input type="email" name="email" placeholder="Enter your email" required class="waitlist-input">
+        <form class="waitlist-form" id="waitlist-hero">
+          <input type="email" name="email" placeholder="Enter your email address" required class="waitlist-input">
           <button type="submit" class="btn btn-primary">
-            Get Early Access
+            Lock in Priority Access
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </form>
         <div class="hero-meta">
-          <span>2,847 founders on the waitlist</span>
+          <span>Join 3,200+ founders preparing to raise</span>
           <span class="meta-dot">•</span>
-          <span>Limited spots available</span>
+          <span>Limited early intake open</span>
         </div>
       </div>
-      <div class="hero-visual reveal reveal-delay-1">
-        <img src="assets/hero-mockup.png" alt="PitchNest AI Platform Dashboard" class="hero-image">
+
+      <!-- Interactive Hero Mockup (AI Investment Committee & Score Dashboard) -->
+      <div class="hero-visual reveal reveal-delay-1" id="demo">
+        
+        <!-- Tab selector headers -->
+        <div class="chat-header" style="background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--border-color); padding: 1.25rem;">
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="badge-dot" style="background-color:#10b981;"></span>
+            <span class="logo-text" style="font-size: 0.95rem; font-weight:800;">LIVE DEMO: PitchNest Simulator Output</span>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Double-Click to Interact</span>
+        </div>
+
+        <div class="hero-visual-inner">
+          
+          <!-- Section 1: AI Investment Committee Widget -->
+          <div>
+            <div style="margin-bottom: 1rem;">
+              <h3 style="font-size: 1.15rem; font-weight: 900; margin-bottom: 0.25rem;">1. AI Investment Committee Debate Room</h3>
+              <p style="font-size: 0.825rem; color: var(--text-secondary);">Click different VCs on the left sidebar to see their active debate transcript regarding your startup idea.</p>
+            </div>
+
+            <div class="committee-widget">
+              <!-- Sidebar of VCs -->
+              <div class="committee-sidebar">
+                <span class="sidebar-title">Investment Board</span>
+                
+                <button class="investor-pill active" data-vc="arthur">
+                  <div class="investor-avatar" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">AV</div>
+                  <div class="investor-info">
+                    <span class="investor-name">Arthur Vance</span>
+                    <span class="investor-role">Aggressive VC</span>
+                  </div>
+                  <span class="sentiment-dot sentiment-pass" title="Current: Pass"></span>
+                </button>
+
+                <button class="investor-pill" data-vc="sarah">
+                  <div class="investor-avatar" style="background: linear-gradient(135deg, #10b981, #047857);">AI</div>
+                  <div class="investor-info">
+                    <span class="investor-name">Sarah Jenkins</span>
+                    <span class="investor-role">Angel Investor</span>
+                  </div>
+                  <span class="sentiment-dot sentiment-invest" title="Current: Invest"></span>
+                </button>
+
+                <button class="investor-pill" data-vc="ken">
+                  <div class="investor-avatar" style="background: linear-gradient(135deg, #0ea5e9, #0369a1);">TI</div>
+                  <div class="investor-info">
+                    <span class="investor-name">Dr. Ken Tanaka</span>
+                    <span class="investor-role">Technical VC</span>
+                  </div>
+                  <span class="sentiment-dot sentiment-maybe" title="Current: Maybe"></span>
+                </button>
+
+                <button class="investor-pill" data-vc="elena">
+                  <div class="investor-avatar" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">SV</div>
+                  <div class="investor-info">
+                    <span class="investor-name">Elena Rostova</span>
+                    <span class="investor-role">Skeptical Partner</span>
+                  </div>
+                  <span class="sentiment-dot sentiment-maybe" title="Current: Maybe"></span>
+                </button>
+              </div>
+
+              <!-- Main Chat Debate Log -->
+              <div class="committee-chat">
+                <div class="chat-header">
+                  <div style="display:flex; flex-direction:column;">
+                    <span class="chat-header-title" id="active-vc-title">Arthur Vance — Aggressive VC Perspective</span>
+                    <span style="font-size: 0.725rem; color: var(--text-muted);" id="active-vc-sub">Debating: TAM & Revenue Defensibility</span>
+                  </div>
+                  <span class="consensus-badge" id="active-vc-sentiment">
+                    <span class="sentiment-dot sentiment-pass"></span>
+                    Arthur Vote: Pass
+                  </span>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages-container">
+                  <div class="chat-bubble">
+                    <div class="chat-bubble-content">
+                      <span class="chat-bubble-sender">Arthur Vance (Aggressive VC)</span>
+                      "Look, the founder story is high energy, but let's look at the cold hard facts. The TAM calculations are heavily inflated by assuming adjacent markets they can't realistically acquire in year 1. Unless they can prove customer acquisition costs scale down dramatically, this unit economic model is broken. I'm voting Pass."
+                    </div>
+                  </div>
+                  <div class="chat-bubble" style="align-self: flex-end; flex-direction: row-reverse;">
+                    <div class="chat-bubble-content" style="background: rgba(14, 165, 233, 0.05); border-color: rgba(14, 165, 233, 0.15); border-radius: 1rem 0 1rem 1rem;">
+                      <span class="chat-bubble-sender" style="text-align: right;">PitchNest Response Recommendation</span>
+                      "Arthur is heavily concerned about CAC and TAM calculations. To counter this, present your cohort retention rates and show detailed GTM partnerships that validate organic acquisition growth."
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Fundability Score Dashboard -->
+          <div>
+            <div style="margin-bottom: 1.25rem;">
+              <h3 style="font-size: 1.15rem; font-weight: 900; margin-bottom: 0.25rem;">2. Live Fundability Score Dashboard</h3>
+              <p style="font-size: 0.825rem; color: var(--text-secondary);">Watch your pitch metrics grade in real-time across critical investment dimensions.</p>
+            </div>
+
+            <div class="score-dashboard">
+              <div class="radial-score-container">
+                <svg class="radial-score-svg">
+                  <defs>
+                    <linearGradient id="score-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#0ea5e9" />
+                      <stop offset="100%" stop-color="#6366f1" />
+                    </linearGradient>
+                  </defs>
+                  <circle class="radial-score-bg" cx="75" cy="75" r="70"></circle>
+                  <circle class="radial-score-value-path" id="radial-score-path" cx="75" cy="75" r="70"></circle>
+                </svg>
+                <div class="radial-score-text">
+                  <span class="radial-score-num" id="live-score-text">84</span>
+                  <span class="radial-score-label">Fundable</span>
+                </div>
+              </div>
+
+              <div class="sub-scores-list">
+                <div class="sub-score-item">
+                  <div class="sub-score-header">
+                    <span class="sub-score-title">Market Opportunity Score</span>
+                    <span class="sub-score-val" data-val="90">90%</span>
+                  </div>
+                  <div class="sub-score-bar-bg">
+                    <div class="sub-score-bar-fill" style="width: 90%;"></div>
+                  </div>
+                </div>
+                <div class="sub-score-item">
+                  <div class="sub-score-header">
+                    <span class="sub-score-title">Pitch Clarity & Storytelling</span>
+                    <span class="sub-score-val" data-val="85">85%</span>
+                  </div>
+                  <div class="sub-score-bar-bg">
+                    <div class="sub-score-bar-fill" style="width: 85%;"></div>
+                  </div>
+                </div>
+                <div class="sub-score-item">
+                  <div class="sub-score-header">
+                    <span class="sub-score-title">Business Model Strength</span>
+                    <span class="sub-score-val" data-val="80">80%</span>
+                  </div>
+                  <div class="sub-score-bar-bg">
+                    <div class="sub-score-bar-fill" style="width: 80%;"></div>
+                  </div>
+                </div>
+                <div class="sub-score-item">
+                  <div class="sub-score-header">
+                    <span class="sub-score-title">Founder Defensibility & Readiness</span>
+                    <span class="sub-score-val" data-val="82">82%</span>
+                  </div>
+                  <div class="sub-score-bar-bg">
+                    <div class="sub-score-bar-fill" style="width: 82%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Trusted By -->
+  <!-- Trusted By / Social Proof -->
   <section class="trusted">
     <div class="container">
-      <p class="trusted-label reveal">Trusted by founders from</p>
+      <p class="trusted-label reveal">Our members have closed rounds from prominent VCs</p>
       <div class="trusted-logos reveal">
-        <span class="logo-pill">HealthTech AI</span>
-        <span class="logo-pill">Quantum Labs</span>
-        <span class="logo-pill">FinFlow</span>
-        <span class="logo-pill">DataSync</span>
-        <span class="logo-pill">CloudNest</span>
-        <span class="logo-pill">AI Forge</span>
+        <span class="logo-pill">↗ Pre-Seed Raised ($450k)</span>
+        <span class="logo-pill">↗ Y-Combinator Intake</span>
+        <span class="logo-pill">↗ Seed Round Closed ($2.4M)</span>
+        <span class="logo-pill">↗ Series A Closed ($8M)</span>
+        <span class="logo-pill">↗ Angel Round Closed ($600k)</span>
       </div>
     </div>
   </section>
 
-  <!-- Features -->
-  <section class="features" id="features">
+  <!-- Problem Section -->
+  <section class="features" id="problem" style="background: rgba(0,0,0,0.02); border-bottom: 1px solid var(--border-color);">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">Capabilities</span>
-        <h2 class="section-title">Everything you need to nail your pitch</h2>
-        <p class="section-desc">Train with the most advanced AI-powered pitch simulation platform</p>
+        <span class="section-label" style="color: #ef4444;">The Harsh Reality</span>
+        <h2 class="section-title">Fundraising is unforgiving. You only get one first impression.</h2>
+        <p class="section-desc">Real investors don't have time to teach you. Pitching them unprepared leads to silent rejections and blacklisted profiles.</p>
       </div>
+
       <div class="features-grid">
+        <div class="feature-card reveal" style="border-top: 3px solid #ef4444;">
+          <div class="feature-icon" style="background: rgba(239,68,68,0.1); color: #ef4444;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3>Unforgiving VCs</h3>
+          <p>VC partners listen to hundreds of pitches a year. A single stutter or unpolished business metric means they tune out in under 3 minutes.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-1" style="border-top: 3px solid #ef4444;">
+          <div class="feature-icon" style="background: rgba(239,68,68,0.1); color: #ef4444;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 15h8"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </div>
+          <h3>Rare & Biased Feedback</h3>
+          <p>Rejections are hidden behind boilerplate "Not at the stage" emails. VCs rarely tell you the actual red flag that killed your deal.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-2" style="border-top: 3px solid #ef4444;">
+          <div class="feature-icon" style="background: rgba(239,68,68,0.1); color: #ef4444;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Wasted Investor Leads</h3>
+          <p>Perfecting your pitch deck by running live investor meetings burns through your best leads when you can least afford to fail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section (Before vs After) -->
+  <section class="features" id="solution">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">The Solution System</span>
+        <h2 class="section-title">The PitchNest Fundraising Readiness Loop</h2>
+        <p class="section-desc">Shift from stressful guessing to high-confidence fundraising with data-driven simulation.</p>
+      </div>
+
+      <!-- Mobile Tab Selector (Visible only on mobile screen widths) -->
+      <div class="compare-mobile-tabs" id="compare-mobile-tabs">
+        <button class="compare-tab-btn active" data-compare="before">Without PitchNest</button>
+        <button class="compare-tab-btn" data-compare="after">With PitchNest</button>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-card compare-before active reveal" id="compare-card-before">
+          <h3 class="compare-title">
+            <span>❌</span> Without PitchNest
+          </h3>
+          <ul class="compare-list">
+            <li><strong>Anxious Guesswork:</strong> Walking into VC boardrooms hoping they don't ask about your specific TAM limits.</li>
+            <li><strong>Wasted Lead Pipeline:</strong> Using your dream investors as 'practice rounds' and burning through network connections.</li>
+            <li><strong>Silent Rejections:</strong> Getting standard boilerplate rejection emails without ever knowing the actual red flag.</li>
+            <li><strong>Founder Isolation:</strong> Pitching in a bubble without robust peer benchmarking or VC panel consensus critiques.</li>
+          </ul>
+        </div>
+
+        <div class="compare-card compare-after reveal reveal-delay-1" id="compare-card-after">
+          <h3 class="compare-title">
+            <span>✓</span> With PitchNest Platform
+          </h3>
+          <ul class="compare-list">
+            <li><strong>Boardroom Confidence:</strong> Perfecting your answers to tough unit economic critiques in a safe simulator first.</li>
+            <li><strong>Optimized VC Pipeline:</strong> Reaching out to real investors only when your dashboard indicates a 85+ score.</li>
+            <li><strong>Actionable Red Flags:</strong> Fixing structural monetization errors before real capital controllers notice them.</li>
+            <li><strong>Gamified Growth:</strong> Seeing how your startup ranks against cohort competitors and tracking readiness scores over time.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features Section -->
+  <section class="features" id="features" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Platform Modules</span>
+        <h2 class="section-title">Category-Defining Simulation Capabilities</h2>
+        <p class="section-desc">Prepare, validate, and verify startup fundability with an integrated AI toolbox.</p>
+      </div>
+
+      <div class="features-grid">
+        
+        <!-- Feature 1: AI Investment Committee -->
         <div class="feature-card reveal">
-          <div class="feature-icon" style="background: #f0f9ff; color: #0284c7;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div class="feature-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
-          <h3>Live AI Investor Debate</h3>
-          <p>Watch AI investors discuss your startup, challenge assumptions, and build consensus in real-time.</p>
+          <h3>AI Investment Committee</h3>
+          <p>Simulate a multi-persona board debate. Four distinct VCs argue, push back, and score your market opportunity dynamically.</p>
         </div>
+
+        <!-- Feature 2: Fundability Score System -->
         <div class="feature-card reveal reveal-delay-1">
-          <div class="feature-icon" style="background: #eef2ff; color: #4f46e5;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div class="feature-icon" style="background: rgba(99, 102, 241, 0.1); color: #6366f1;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16V8"/><path d="M4 12h16"/></svg>
           </div>
-          <h3>Real-Time Pitch Feedback</h3>
-          <p>Get instant, actionable feedback on your pitch delivery, messaging, and presentation style.</p>
+          <h3>Fundability Score Engine</h3>
+          <p>A comprehensive 0–100 grading system checking TAM sizes, financial margins, storytelling, and storytelling clarity.</p>
         </div>
+
+        <!-- Feature 3: Startup Health Check Analyzer -->
         <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon" style="background: #ecfdf5; color: #059669;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
           </div>
-          <h3>AI Q&A Simulation</h3>
-          <p>Practice answering tough investor questions with AI that adapts to your responses.</p>
+          <h3>Health Check Analyzer</h3>
+          <p>Instantly audit business structures or deck pages for underlying risks, target market errors, and legal vulnerabilities.</p>
         </div>
+
+        <!-- Feature 4: Investor Readiness Report -->
         <div class="feature-card reveal">
-          <div class="feature-icon" style="background: #f5f3ff; color: #7c3aed;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <div class="feature-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           </div>
-          <h3>Pitch Deck Analysis</h3>
-          <p>Upload your PDF deck — the AI reads it and asks slide-specific questions about TAM, financials, and GTM.</p>
+          <h3>Downloadable PDF Readiness Report</h3>
+          <p>Get a comprehensive output breakdown highlighting key red flags, suggestions, and co-founder actions.</p>
         </div>
+
+        <!-- Feature 5: Benchmarking System -->
         <div class="feature-card reveal reveal-delay-1">
-          <div class="feature-icon" style="background: #fff1f2; color: #e11d48;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           </div>
-          <h3>Performance Scoring</h3>
-          <p>Comprehensive scoring on confidence, clarity, knowledge depth, and response quality.</p>
+          <h3>Cohort Benchmarking</h3>
+          <p>Track your score over time and see exactly how your company stacks up against competing startups in your category.</p>
         </div>
+
+        <!-- Feature 6: Discovery Layer & Gamification -->
         <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon" style="background: #fffbeb; color: #d97706;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <div class="feature-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <h3>Investor Sentiment</h3>
-          <p>Real-time sentiment analysis showing how each AI investor perceives your pitch.</p>
+          <h3>Founder Leaderboards</h3>
+          <p>Earn medals, rise on the featured leaderboard, and opt-in to show verified scores to interested accelerators.</p>
         </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Startup Health Check Analyzer (Interactive Demo Module) -->
+  <section class="features" id="health-check">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Interactive Audit</span>
+        <h2 class="section-title">Try The Startup Health Check Analyzer</h2>
+        <p class="section-desc">Select an archetype startup concept below to run an instant simulation of the AI Health Auditor.</p>
+      </div>
+
+      <div class="health-widget reveal">
+        <div class="health-input-group">
+          <select class="health-select" id="health-idea-selector">
+            <option value="charge">Airbnb for EV Chargers — Peer-to-Peer Charger Sharing Platform</option>
+            <option value="slide">DocuFlow — AI Slide Deck Layout and Defensibility Audit SaaS</option>
+            <option value="fitness">FitMirror — AI Personalized Mirror Gym Trainer with Vision Feedback</option>
+          </select>
+          <button class="btn btn-primary health-btn" id="run-health-btn">
+            Run Health Audit
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </button>
+        </div>
+
+        <!-- Mobile Tab Selector (Visible only on mobile screen widths) -->
+        <div class="health-mobile-tabs" id="health-mobile-tabs">
+          <button class="health-tab-btn active" data-tab="strengths">✓ Strengths</button>
+          <button class="health-tab-btn" data-tab="weaknesses">⚠ Weaknesses</button>
+          <button class="health-tab-btn" data-tab="risks">✗ Risks</button>
+          <button class="health-tab-btn" data-tab="concerns">⚡ VC Concerns</button>
+        </div>
+
+        <!-- Analyzer outputs -->
+        <div class="health-results-grid" id="health-output-box">
+          <div class="health-col health-col-strengths active" id="health-col-strengths">
+            <h4>✓ Key Strengths</h4>
+            <ul class="health-list" id="health-strengths-list">
+              <li>Low initial capex; uses community-shared charging nodes.</li>
+              <li>Viral natural referral loop from host-to-driver.</li>
+              <li>High-intent, recurring customer behavior patterns.</li>
+            </ul>
+          </div>
+
+          <div class="health-col health-col-weaknesses" id="health-col-weaknesses">
+            <h4>⚠ Model Weaknesses</h4>
+            <ul class="health-list" id="health-weaknesses-list">
+              <li>High operational liability if host equipment damages vehicles.</li>
+              <li>Initial localized two-sided chicken-and-egg marketplace issues.</li>
+            </ul>
+          </div>
+
+          <div class="health-col health-col-risks" id="health-col-risks">
+            <h4>✗ Market Risks</h4>
+            <ul class="health-list" id="health-risks-list">
+              <li>Utility regulatory limits on host resale of electricity.</li>
+              <li>Fast-charging network expansion reduces long-stay parking demand.</li>
+            </ul>
+          </div>
+
+          <div class="health-col health-col-concerns" id="health-col-concerns">
+            <h4>⚡ Core VC Concerns</h4>
+            <ul class="health-list" id="health-concerns-list">
+              <li>"How do you secure early density before a competitor with deep capex clones the model?"</li>
+              <li>"What is the defense margin once major charging networks integrate home sharing?"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Investor Readiness Report Mockup -->
+  <section class="features" id="readiness-report" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Actionable Outputs</span>
+        <h2 class="section-title">Investor Readiness PDF Output</h2>
+        <p class="section-desc">Every PitchNest session outputs a downloadable, high-fidelity audit report outlining what to fix before your VC meetings.</p>
+      </div>
+
+      <div class="report-card reveal">
+        <div>
+          <h3 style="font-size: 1.75rem; margin-bottom: 1rem;">Investor-Grade Action Blueprints</h3>
+          <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.5rem;">
+            Stop entering meetings blind. Get a rigorous, printable report detailing your VC consensus scorecard, slide-by-slide errors, exact Q&A counter-narratives, and red flag warnings.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+            <span class="logo-pill" style="border-color: rgba(16,185,129,0.3); color: #10b981;">✓ Score Card Summary</span>
+            <span class="logo-pill" style="border-color: rgba(239,68,68,0.3); color: #ef4444;">✗ Red Flags List</span>
+            <span class="logo-pill" style="border-color: rgba(139,92,246,0.3); color: #8b5cf6;">⚡ Fix Recommendations</span>
+          </div>
+          <button class="btn btn-outline" style="border-color: var(--primary); color: var(--primary);">
+            View Sample PDF Report
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+
+        <div class="report-preview-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+            <span style="font-weight:800; font-size:0.875rem;">PitchNest Readiness Audit</span>
+            <span style="font-size:0.75rem; color:#10b981; font-weight:700;">Grade: Outstanding (84/100)</span>
+          </div>
+          <div class="report-badge-list">
+            <div class="report-red-flag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Red Flag: Incongruent Year-2 revenue margins vs stated GTM pipeline.</span>
+            </div>
+            <div class="report-fix-suggestion">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Fix: Refactor sales pipelines to separate enterprise contracts from SaaS scale.</span>
+            </div>
+            <div class="report-red-flag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Red Flag: Defensibility index is low. Looks like a basic wrapper tool.</span>
+            </div>
+            <div class="report-fix-suggestion">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Fix: Highlight proprietary prompt models and API cache database structures.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benchmarking & Leaderboard Section -->
+  <section class="features" id="benchmarks">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Cohort Metrics</span>
+        <h2 class="section-title">Cohort Benchmarking & Leaderboard</h2>
+        <p class="section-desc">See exactly where your readiness ranks in the global founder cohort and access monthly pitch challenges.</p>
+      </div>
+
+      <div class="benchmark-section">
+        
+        <!-- Benchmark Card -->
+        <div class="benchmark-card reveal">
+          <h3 style="font-size:1.25rem; font-weight:800; margin-bottom: 0.5rem;">Your Defensibility Benchmark</h3>
+          <p style="font-size:0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Compare your fundability score against competing startups in the AI SaaS sector.</p>
+          
+          <div class="ranking-progress-track">
+            <div class="ranking-progress-bar"></div>
+            <div class="ranking-progress-marker"></div>
+          </div>
+
+          <div class="ranking-badge-wrapper">
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight:700; display:block; text-transform:uppercase;">Sector Rank</span>
+              <span style="font-size: 1.15rem; font-weight:800; color:var(--text-primary);">Top 8% in AI SaaS</span>
+            </div>
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight:700; display:block; text-transform:uppercase;">Percentile</span>
+              <span style="font-size: 1.15rem; font-weight:800; color:#10b981;">92nd Percentile</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard Card -->
+        <div class="benchmark-card reveal reveal-delay-1">
+          <h3 style="font-size:1.25rem; font-weight:800; margin-bottom: 0.5rem;">Monthly Pitch Challenge Leaderboard</h3>
+          <p style="font-size:0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">Top verified founders of the May Cohort.</p>
+          
+          <div class="leaderboard-table">
+            <div class="leaderboard-row">
+              <div class="leaderboard-founder">
+                <span class="leaderboard-rank leaderboard-rank-1">1</span>
+                <div class="leaderboard-avatar-circle" style="background: linear-gradient(135deg,#f59e0b,#d97706);">JM</div>
+                <div>
+                  <span class="leaderboard-founder-name">Jessica Martinez</span>
+                  <span class="leaderboard-founder-company">HealthTech AI</span>
+                </div>
+              </div>
+              <span class="leaderboard-score">94 Score</span>
+            </div>
+
+            <div class="leaderboard-row">
+              <div class="leaderboard-founder">
+                <span class="leaderboard-rank leaderboard-rank-2">2</span>
+                <div class="leaderboard-avatar-circle" style="background: linear-gradient(135deg,#cbd5e1,#64748b);">DC</div>
+                <div>
+                  <span class="leaderboard-founder-name">David Chen</span>
+                  <span class="leaderboard-founder-company">Quantum Labs</span>
+                </div>
+              </div>
+              <span class="leaderboard-score">91 Score</span>
+            </div>
+
+            <div class="leaderboard-row">
+              <div class="leaderboard-founder">
+                <span class="leaderboard-rank leaderboard-rank-3">3</span>
+                <div class="leaderboard-avatar-circle" style="background: linear-gradient(135deg,#b45309,#78350f);">SW</div>
+                <div>
+                  <span class="leaderboard-founder-name">Sophia Williams</span>
+                  <span class="leaderboard-founder-company">FinFlow SaaS</span>
+                </div>
+              </div>
+              <span class="leaderboard-score">89 Score</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Startup Discovery Layer (Gallery Cards concept) -->
+  <section class="features" id="discovery" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Discovery Layer</span>
+        <h2 class="section-title">The Verified Founder Pipeline</h2>
+        <p class="section-desc">Optionally opt-in to list your verified score in our secure investor discovery catalog, letting matched VCs discover your readiness milestones.</p>
+      </div>
+
+      <div class="discovery-grid">
+        
+        <!-- Card 1 -->
+        <div class="discovery-card reveal">
+          <div class="discovery-card-header">
+            <span class="discovery-card-tag">Climate Tech</span>
+            <span class="discovery-score-badge">94 Score</span>
+          </div>
+          <div class="discovery-card-body">
+            <h4>EcoDrive Systems</h4>
+            <p>P2P residential sharing network for electric vehicle chargers with integrated grid-resale pricing.</p>
+            <div class="discovery-meta-row">
+              <div>
+                <span class="discovery-meta-label">Readiness</span>
+                <span class="discovery-meta-val">Outstanding</span>
+              </div>
+              <div>
+                <span class="discovery-meta-label">Status</span>
+                <span class="discovery-meta-val">Pre-Seed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="discovery-card reveal reveal-delay-1">
+          <div class="discovery-card-header">
+            <span class="discovery-card-tag">AI DevTools</span>
+            <span class="discovery-score-badge">91 Score</span>
+          </div>
+          <div class="discovery-card-body">
+            <h4>DocuFlow Audit</h4>
+            <p>Instant automated slide deck design and financial layout verification pipeline for deal closures.</p>
+            <div class="discovery-meta-row">
+              <div>
+                <span class="discovery-meta-label">Readiness</span>
+                <span class="discovery-meta-val">Excellent</span>
+              </div>
+              <div>
+                <span class="discovery-meta-label">Status</span>
+                <span class="discovery-meta-val">Seed Intake</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="discovery-card reveal reveal-delay-2">
+          <div class="discovery-card-header">
+            <span class="discovery-card-tag">Fitness AI</span>
+            <span class="discovery-score-badge">89 Score</span>
+          </div>
+          <div class="discovery-card-body">
+            <h4>FitMirror Coach</h4>
+            <p>Smart mirror containing full visual workout capture loops and AI posture analytics.</p>
+            <div class="discovery-meta-row">
+              <div>
+                <span class="discovery-meta-label">Readiness</span>
+                <span class="discovery-meta-val">Strong</span>
+              </div>
+              <div>
+                <span class="discovery-meta-label">Status</span>
+                <span class="discovery-meta-val">Pre-Seed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -145,200 +715,132 @@
   <section class="how-it-works" id="how-it-works">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">Simple Process</span>
-        <h2 class="section-title">Master your pitch in 3 steps</h2>
+        <span class="section-label">Simple Protocol</span>
+        <h2 class="section-title">Master Your Fundraising Loop In 3 Steps</h2>
       </div>
       <div class="steps-grid">
         <div class="step-card reveal">
           <div class="step-number">1</div>
-          <h3>Start a pitch session</h3>
-          <p>Upload your deck and select your AI investor panel difficulty level.</p>
+          <h3>Upload Pitch / Deck</h3>
+          <p>Submit your deck PDF and input your startup sector parameters. The AI immediately analyzes your structure.</p>
         </div>
         <div class="step-connector reveal"></div>
         <div class="step-card reveal reveal-delay-1">
           <div class="step-number">2</div>
-          <h3>Present your idea</h3>
-          <p>Present via voice or video. AI analyzes your narrative in real-time.</p>
+          <h3>Present To AI Committee</h3>
+          <p>Deliver your pitch in a vocal simulation. Our AI committee pushes back, debates, and grades your defense.</p>
         </div>
         <div class="step-connector reveal"></div>
         <div class="step-card reveal reveal-delay-2">
           <div class="step-number">3</div>
-          <h3>Get investor feedback</h3>
-          <p>Receive a comprehensive report with scores and a recording of the debate.</p>
+          <h3>Get Score & Report</h3>
+          <p>Download your verified fundability scorecard, red flags listing, and consensus VC debate transcript.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Testimonials -->
+  <!-- Testimonials / Success Stories -->
   <section class="testimonials" id="testimonials">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">Success Stories</span>
-        <h2 class="section-title">Founders are raising faster</h2>
-        <p class="section-desc">Join successful founders who perfected their pitch with AI</p>
+        <span class="section-label">Funding Outcomes</span>
+        <h2 class="section-title">Perfected with AI. Funded by VCs.</h2>
+        <p class="section-desc">Join founders who used PitchNest to secure capital in unforgiving markets.</p>
       </div>
-      <div class="testimonials-carousel reveal" id="testimonials-track">
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="avatar" style="background: linear-gradient(135deg, #a855f7, #3b82f6);">JM</div>
-            <div>
-              <h4>Jessica Martinez</h4>
-              <span>HealthTech AI</span>
+      
+      <div class="testimonials-carousel-wrapper">
+        <div class="testimonials-carousel reveal" id="testimonials-track">
+          
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="avatar" style="background: linear-gradient(135deg, #a855f7, #3b82f6);">JM</div>
+              <div>
+                <h4>Jessica Martinez</h4>
+                <span>HealthTech AI</span>
+              </div>
             </div>
+            <div class="stars">★★★★★</div>
+            <p>"PitchNest was ruthless. The AI Investment Committee caught a massive vulnerability in our GTM assumptions that our accelerators missed. We fixed it and closed our $8M Series A."</p>
+            <div class="result-badge">↗ Raised $8M Series A</div>
           </div>
-          <div class="stars">★★★★★</div>
-          <p>"PitchNest helped me identify and fix critical weaknesses before my Series A. We closed $8M."</p>
-          <div class="result-badge">↗ Raised $8M Series A</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">DC</div>
-            <div>
-              <h4>David Chen</h4>
-              <span>Quantum Labs</span>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">DC</div>
+              <div>
+                <h4>David Chen</h4>
+                <span>Quantum Labs</span>
+              </div>
             </div>
+            <div class="stars">★★★★★</div>
+            <p>"Arthur (the Aggressive VC) absolutely hammered us on customer concentration metrics. Practicing responses in the simulator saved us from real boardroom embarrassment."</p>
+            <div class="result-badge">↗ Raised $3.5M Seed</div>
           </div>
-          <div class="stars">★★★★★</div>
-          <p>"The AI investors asked questions I never anticipated. This saved me from embarrassment in front of real VCs."</p>
-          <div class="result-badge">↗ Raised $3.5M Seed</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="avatar" style="background: linear-gradient(135deg, #06b6d4, #a855f7);">SW</div>
-            <div>
-              <h4>Sophia Williams</h4>
-              <span>FinFlow</span>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="avatar" style="background: linear-gradient(135deg, #06b6d4, #a855f7);">SW</div>
+              <div>
+                <h4>Sophia Williams</h4>
+                <span>FinFlow SaaS</span>
+              </div>
             </div>
+            <div class="stars">★★★★★</div>
+            <p>"Running our deck through the Health Check Analyzer found two regulatory red flags in under 60 seconds. We adjusted our financial projections and closed YC intake seamlessly."</p>
+            <div class="result-badge">↗ Closed Pre-Seed ($600k)</div>
           </div>
-          <div class="stars">★★★★★</div>
-          <p>"Best pitch prep tool I've used. The real-time feedback is invaluable. Felt like a real VC meeting."</p>
-          <div class="result-badge">↗ Raised $12M Series B</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="avatar" style="background: linear-gradient(135deg, #10b981, #14b8a6);">AR</div>
-            <div>
-              <h4>Alex Rivera</h4>
-              <span>DataSync</span>
-            </div>
-          </div>
-          <div class="stars">★★★★★</div>
-          <p>"The multi-investor debate format is genius. I heard arguments for and against my startup I'd never considered."</p>
-          <div class="result-badge">↗ Raised $5M Series A</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="avatar" style="background: linear-gradient(135deg, #f59e0b, #f97316);">PP</div>
-            <div>
-              <h4>Priya Patel</h4>
-              <span>CloudNest</span>
-            </div>
-          </div>
-          <div class="stars">★★★★★</div>
-          <p>"After 3 sessions on PitchNest, I walked into my real pitch with unshakeable confidence. Worth every minute."</p>
-          <div class="result-badge">↗ Raised $2M Pre-Seed</div>
+
         </div>
       </div>
       <div class="carousel-dots" id="carousel-dots"></div>
     </div>
   </section>
 
-  <!-- Why PitchNest -->
-  <section class="why-section" id="why">
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">Why PitchNest</span>
-        <h2 class="section-title">The unfair advantage for founders</h2>
-        <p class="section-desc">Most founders walk into their first real pitch unprepared. PitchNest changes that.</p>
-      </div>
-      <div class="why-grid">
-        <div class="why-card reveal">
-          <div class="why-icon" style="color: #f59e0b; background: #fffbeb;">⚡</div>
-          <h3>Instant feedback loop</h3>
-          <p>Get real-time, AI-powered critiques the moment you finish speaking.</p>
-        </div>
-        <div class="why-card reveal reveal-delay-1">
-          <div class="why-icon" style="color: #0ea5e9; background: #f0f9ff;">👥</div>
-          <h3>Multi-persona simulation</h3>
-          <p>Three distinct investor archetypes that argue, interrupt, and push back like real VCs.</p>
-        </div>
-        <div class="why-card reveal reveal-delay-2">
-          <div class="why-icon" style="color: #10b981; background: #ecfdf5;">🛡️</div>
-          <h3>Safe space to fail</h3>
-          <p>Stumble on tough questions and recover — without burning your one shot with a real investor.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon" style="color: #8b5cf6; background: #f5f3ff;">📊</div>
-          <h3>Deck-aware intelligence</h3>
-          <p>The AI reads your deck and asks slide-specific questions about TAM, unit economics, and GTM.</p>
-        </div>
-        <div class="why-card reveal reveal-delay-1">
-          <div class="why-icon" style="color: #e11d48; background: #fff1f2;">📈</div>
-          <h3>Track your progress</h3>
-          <p>Every session is recorded and scored. Watch your confidence and readiness improve over time.</p>
-        </div>
-        <div class="why-card reveal reveal-delay-2">
-          <div class="why-icon" style="color: #6366f1; background: #eef2ff;">📋</div>
-          <h3>Fundraising-ready reports</h3>
-          <p>Share reports with co-founders, mentors, or accelerators to prove you're investor-ready.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="faq-section" id="faq">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-label">FAQ</span>
-        <h2 class="section-title">Frequently asked questions</h2>
+        <span class="section-label">Platform FAQ</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
       </div>
       <div class="faq-grid reveal">
-        <details class="faq-item">
-          <summary>What is PitchNest?</summary>
-          <p>PitchNest is an AI-powered platform that simulates real investor pitch sessions. You present your startup idea to a panel of AI investors who listen, ask tough questions, and give you a detailed performance report.</p>
+        <details class="faq-item" open>
+          <summary>What makes PitchNest a fundraising system rather than a practice tool?</summary>
+          <p>Practice tools simply let you record your voice. PitchNest is a comprehensive simulation system that builds a multi-persona AI investor panel. They actually read your deck, debate with each other in real-time, score you on 5 critical business dimensions, and produce a PDF red-flag action list.</p>
         </details>
         <details class="faq-item">
-          <summary>How realistic are the AI investors?</summary>
-          <p>Our AI panel consists of distinct personas — a skeptic lead partner, a numbers-obsessed analyst, and a technical expert. They react dynamically to what you say, challenge your claims, and even debate among themselves, just like a real VC boardroom.</p>
+          <summary>How realistic is the AI Investment Committee?</summary>
+          <p>Our committee simulates 4 distinct investor archetypes: an Aggressive VC focused strictly on margins, a product-oriented Angel Investor, a deeply technical VC looking for wrapper tools, and a Skeptical Partner checking monetization risk. They challenge your arguments and vote collectively.</p>
         </details>
         <details class="faq-item">
-          <summary>Can I upload my pitch deck?</summary>
-          <p>Yes! Upload your pitch deck as a PDF and the AI investors will actually read and reference it during the session, asking specific questions about your slides, financials, and market data.</p>
+          <summary>Is the Health Check Analyzer deck-aware?</summary>
+          <p>Yes. When you upload your deck PDF or input your company metrics, the AI cross-references it with sector standards in AI devtools, climate tech, hardware, or biotech, instantly checking your revenue assumptions and GTM loops for core vulnerabilities.</p>
         </details>
         <details class="faq-item">
-          <summary>Is PitchNest free?</summary>
-          <p>We're currently in early access. Join the waitlist to secure your spot and get notified when we launch. Early adopters will receive exclusive benefits.</p>
-        </details>
-        <details class="faq-item">
-          <summary>What kind of feedback do I get?</summary>
-          <p>You receive a comprehensive evaluation report covering pitch clarity, market knowledge, financial literacy, response quality, and overall fundraising readiness — with specific, actionable improvement suggestions.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Can I practice multiple times?</summary>
-          <p>Absolutely. Each session is saved with a full transcript replay and evaluation report so you can track your improvement over time.</p>
+          <summary>Is my startup data secure and private?</summary>
+          <p>Absolutely. We encrypt all deck uploads and voice sessions. Your startup profile only lists on our public Discovery Catalog if you explicitly opt-in to show verified score milestones to matched investor partners.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- Final CTA -->
+  <!-- Final CTA waitlist signup -->
   <section class="final-cta">
     <div class="container">
       <div class="cta-card reveal">
         <div class="cta-glow"></div>
         <div class="cta-content">
-          <h2>Ready to face the panel?</h2>
-          <p>Don't wait for a real board meeting to find the flaws in your pitch. Iterate faster with PitchNest.</p>
-          <form class="waitlist-form cta-form" action="https://formspree.io/f/xqazpgkr" method="POST">
-            <input type="email" name="email" placeholder="Enter your email" required class="waitlist-input">
+          <h2>Stop Guessing. Start Preparing.</h2>
+          <p>Don't wait for a real board meeting to find the flaws in your pitch deck. Perfect your fundability score with PitchNest.</p>
+          <form class="waitlist-form cta-form" id="waitlist-footer">
+            <input type="email" name="email" placeholder="Enter your email address" required class="waitlist-input">
             <button type="submit" class="btn btn-white">
-              Join the Waitlist
+              Get Priority Early Access
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
           </form>
-          <p class="cta-meta">Early access closes in 7 days. Join now to secure your spot.</p>
+          <p class="cta-meta">Launch Intake closing soon. Priority access guaranteed to initial signups.</p>
         </div>
       </div>
     </div>
@@ -354,15 +856,15 @@
           </div>
           <span class="logo-text">PitchNest</span>
         </a>
-        <p class="footer-desc">AI-powered pitch simulation platform for startup founders.</p>
+        <p class="footer-desc">AI-powered fundraising readiness and startup simulation system. Preparing founders before they ever face VCs.</p>
       </div>
       <div class="footer-links">
         <div class="footer-col">
-          <h4>Product</h4>
-          <a href="#features">Features</a>
-          <a href="#how-it-works">How It Works</a>
+          <h4>Platform</h4>
+          <a href="#demo">Interactive Demo</a>
+          <a href="#features">Modules</a>
+          <a href="#health-check">Health Audit</a>
           <a href="#testimonials">Stories</a>
-          <a href="#faq">FAQ</a>
         </div>
         <div class="footer-col">
           <h4>Get in Touch</h4>
@@ -372,19 +874,19 @@
         <div class="footer-col">
           <h4>Follow Us</h4>
           <a href="https://x.com/PitchNest" target="_blank">Twitter / X</a>
-          <a href="https://wa.me/2349058718400" target="_blank">WhatsApp</a>
+          <a href="https://wa.me/2349058718400" target="_blank">WhatsApp Chat</a>
         </div>
       </div>
     </div>
     <div class="container footer-bottom">
-      <p>&copy; 2025 PitchNest. All rights reserved.</p>
+      <p>&copy; 2026 PitchNest platform. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- Success Toast -->
   <div class="toast" id="toast">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-    <span>You're on the list! We'll notify you for early access. 🎉</span>
+    <span>Welcome! Redirecting you to lock in your VIP Onboarding Survey... 🚀</span>
   </div>
 
   <script src="js/main.js"></script>

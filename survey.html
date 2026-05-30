@@ -57,7 +57,13 @@
       0% { transform: scale(1) translate(0, 0); opacity: 0.12; }
       100% { transform: scale(1.15) translate(3%, 5%); opacity: 0.18; }
     }
-    /* Hide scrollbar for grid */
+    /* Global reset to prevent horizontal overflow scrolling on mobile viewports */
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+    /* Hide scrollbar for clean layout inside card */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -65,16 +71,93 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* Light theme overrides for survey.html */
+    body.light-theme {
+      background-color: #f1f5f9;
+      color: #0f172a;
+    }
+    .light-theme .bg-glow-1 {
+      background: radial-gradient(circle, #38bdf8 0%, #818cf8 100%);
+      opacity: 0.25;
+    }
+    .light-theme .bg-glow-2 {
+      background: radial-gradient(circle, #818cf8 0%, #f472b6 100%);
+      opacity: 0.25;
+    }
+    .light-theme .max-w-2xl {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-color: rgba(226, 232, 240, 0.8);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .light-theme h1, .light-theme h2, .light-theme h3, .light-theme span, .light-theme label, .light-theme p {
+      color: #0f172a !important;
+    }
+    .light-theme #stepIndicator, .light-theme #stepSubtitle, .light-theme .text-slate-400, .light-theme .text-slate-500 {
+      color: #475569 !important;
+    }
+    .light-theme input, .light-theme textarea {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      border-color: rgba(203, 213, 225, 0.8) !important;
+      color: #0f172a !important;
+    }
+    .light-theme input::placeholder, .light-theme textarea::placeholder {
+      color: #94a3b8 !important;
+    }
+    .light-theme input:focus, .light-theme textarea:focus {
+      border-color: #0ea5e9 !important;
+      background-color: #ffffff !important;
+    }
+    .light-theme label.relative {
+      background-color: rgba(241, 245, 249, 0.6) !important;
+      border-color: rgba(226, 232, 240, 0.8) !important;
+    }
+    .light-theme label.relative:hover {
+      background-color: rgba(226, 232, 240, 0.8) !important;
+      border-color: rgba(203, 213, 225, 0.8) !important;
+    }
+    .light-theme .text-slate-200 {
+      color: #1e293b !important;
+    }
+    .light-theme .text-slate-600 {
+      color: #64748b !important;
+    }
+    .light-theme .bg-slate-900\/60 {
+      background-color: rgba(241, 245, 249, 0.8) !important;
+    }
+    .light-theme .bg-slate-900 {
+      background-color: rgba(226, 232, 240, 1) !important;
+    }
+    .light-theme .border-slate-800\/50, .light-theme .border-slate-800\/60 {
+      border-color: rgba(203, 213, 225, 0.8) !important;
+    }
+    .light-theme #successMessage h2, .light-theme #successMessage p, .light-theme #successMessage span {
+      color: #0f172a !important;
+    }
+    .light-theme #successMessage .bg-emerald-500\/10 {
+      background-color: rgba(16, 185, 129, 0.1) !important;
+      border-color: rgba(16, 185, 129, 0.2) !important;
+    }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative overflow-x-hidden">
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen md:h-screen md:overflow-hidden flex flex-col items-center justify-center p-4 sm:p-6 relative overflow-x-hidden">
   
   <!-- Animated glow mesh -->
   <div class="bg-glow-1"></div>
   <div class="bg-glow-2"></div>
 
+  <!-- Floating Theme Toggle -->
+  <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+    <svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l-.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+    </svg>
+    <svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+    </svg>
+  </button>
+
   <!-- Main Card Container -->
-  <div class="w-full max-w-2xl bg-slate-950/75 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-10 border border-slate-800/80 relative z-10 my-8">
+  <div class="w-full max-w-2xl max-h-[90vh] md:max-h-[85vh] overflow-y-auto bg-slate-950/75 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-10 border border-slate-800/80 relative z-10 my-4 sm:my-8 no-scrollbar">
     
     <!-- Header Block -->
     <div id="surveyHeader" class="mb-8">
@@ -147,7 +230,47 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2m-4-3.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <input type="text" name="country" required placeholder="United States" class="w-full pl-11 pr-4 py-3.5 bg-slate-900/60 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-slate-100 placeholder:text-slate-600 transition-all">
+            <input type="text" name="country" list="countries-list" required placeholder="United States" class="w-full pl-11 pr-4 py-3.5 bg-slate-900/60 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-slate-100 placeholder:text-slate-600 transition-all">
+            <datalist id="countries-list">
+              <option value="United States">
+              <option value="United Kingdom">
+              <option value="Canada">
+              <option value="Australia">
+              <option value="Nigeria">
+              <option value="Germany">
+              <option value="France">
+              <option value="India">
+              <option value="Singapore">
+              <option value="Israel">
+              <option value="Netherlands">
+              <option value="Japan">
+              <option value="Brazil">
+              <option value="South Africa">
+              <option value="Spain">
+              <option value="Sweden">
+              <option value="Switzerland">
+              <option value="Ireland">
+              <option value="New Zealand">
+              <option value="United Arab Emirates">
+              <option value="Kenya">
+              <option value="Ghana">
+              <option value="Egypt">
+              <option value="Saudi Arabia">
+              <option value="Mexico">
+              <option value="Colombia">
+              <option value="Argentina">
+              <option value="Estonia">
+              <option value="Finland">
+              <option value="Norway">
+              <option value="Denmark">
+              <option value="Poland">
+              <option value="Turkey">
+              <option value="South Korea">
+              <option value="Indonesia">
+              <option value="Malaysia">
+              <option value="Philippines">
+              <option value="Vietnam">
+            </datalist>
           </div>
         </div>
 
@@ -316,13 +439,13 @@
       <!-- STEP 3: PAIN POINTS -->
       <div id="step-3" class="step-pane hidden space-y-6">
         <div class="space-y-3">
-          <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">What is your biggest challenge when pitching?</label>
+          <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">What is your biggest challenge when pitching? (Select all that apply)</label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="biggest_challenge" value="Structuring my story" class="peer sr-only" required>
+              <input type="checkbox" name="biggest_challenge" value="Structuring my story" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Structuring my story</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -331,9 +454,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="biggest_challenge" value="Answering difficult questions" class="peer sr-only">
+              <input type="checkbox" name="biggest_challenge" value="Answering difficult questions" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Answering difficult questions</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -342,9 +465,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="biggest_challenge" value="Handling objections" class="peer sr-only">
+              <input type="checkbox" name="biggest_challenge" value="Handling objections" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Handling objections</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -353,9 +476,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="biggest_challenge" value="Public speaking confidence" class="peer sr-only">
+              <input type="checkbox" name="biggest_challenge" value="Public speaking confidence" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Public speaking confidence</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -364,9 +487,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="biggest_challenge" value="Pitch deck quality" class="peer sr-only">
+              <input type="checkbox" name="biggest_challenge" value="Pitch deck quality" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Pitch deck quality</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -375,9 +498,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="biggest_challenge" value="Financial projections" class="peer sr-only">
+              <input type="checkbox" name="biggest_challenge" value="Financial projections" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Financial projections</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -386,9 +509,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="biggest_challenge" value="Time management" class="peer sr-only">
+              <input type="checkbox" name="biggest_challenge" value="Time management" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Time management</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -397,9 +520,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="biggest_challenge" value="Explaining technical products" class="peer sr-only">
+              <input type="checkbox" name="biggest_challenge" value="Explaining technical products" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Explaining technical products</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -408,9 +531,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all sm:col-span-2">
-              <input type="radio" name="biggest_challenge" value="Getting honest feedback" class="peer sr-only">
+              <input type="checkbox" name="biggest_challenge" value="Getting honest feedback" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Getting honest feedback</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -467,12 +590,12 @@
 
         <!-- Which feature excites you most? -->
         <div class="space-y-3">
-          <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Which feature excites you most?</label>
+          <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Which features excite you most? (Select all that apply)</label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="favorite_feature" value="AI Investor Panel" class="peer sr-only" required>
+              <input type="checkbox" name="favorite_feature" value="AI Investor Panel" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">AI Investor Panel</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -481,9 +604,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="favorite_feature" value="Live Investor Debate" class="peer sr-only">
+              <input type="checkbox" name="favorite_feature" value="Live Investor Debate" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Live Investor Debate</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -492,9 +615,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="favorite_feature" value="Pitch Scoring" class="peer sr-only">
+              <input type="checkbox" name="favorite_feature" value="Pitch Scoring" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Pitch Scoring</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -503,9 +626,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="favorite_feature" value="Deck Analysis" class="peer sr-only">
+              <input type="checkbox" name="favorite_feature" value="Deck Analysis" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Deck Analysis</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -514,9 +637,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="favorite_feature" value="AI Q&A Practice" class="peer sr-only">
+              <input type="checkbox" name="favorite_feature" value="AI Q&A Practice" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">AI Q&A Practice</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -525,9 +648,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="favorite_feature" value="Fundraising Readiness Report" class="peer sr-only">
+              <input type="checkbox" name="favorite_feature" value="Fundraising Readiness Report" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Fundraising Readiness Report</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -536,9 +659,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="favorite_feature" value="Voice Pitching" class="peer sr-only">
+              <input type="checkbox" name="favorite_feature" value="Voice Pitching" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Voice Pitching</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -547,9 +670,9 @@
             </label>
 
             <label class="relative flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-900/80 hover:border-slate-700 transition-all">
-              <input type="radio" name="favorite_feature" value="Video Pitching" class="peer sr-only">
+              <input type="checkbox" name="favorite_feature" value="Video Pitching" class="peer sr-only">
               <span class="text-sm font-semibold text-slate-200">Video Pitching</span>
-              <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
+              <div class="w-5 h-5 rounded-md border border-slate-700 flex items-center justify-center peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all">
                 <svg class="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
@@ -728,23 +851,29 @@
         <h2 class="text-3xl font-extrabold font-display text-white tracking-tight leading-tight">You're All Set!</h2>
         <p class="text-slate-400 text-sm max-w-sm mx-auto">Your VIP priority status has been locked in. We will reach out shortly for the live beta launch.</p>
       </div>
-
+      
       <div class="border-t border-slate-800/80 pt-8 max-w-sm mx-auto">
         <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Follow PitchNest for live updates</p>
-        <div class="flex justify-center gap-3">
-          <a href="https://x.com/pitchnestapp" target="_blank" class="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border border-slate-800 text-white text-xs font-bold rounded-xl hover:bg-slate-800 transition-all shadow-sm">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            Twitter / X
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
+          <a href="https://x.com/pitchnestapp" target="_blank" class="flex items-center justify-center gap-2 px-3 py-2 bg-black border border-zinc-800 text-white text-xs font-bold rounded-xl hover:bg-zinc-900 transition-all shadow-sm flex-1 sm:flex-initial">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Twitter
           </a>
-          <a href="https://instagram.com/pitchnestapp" target="_blank" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#f09433] via-[#e6683c] to-[#bc1888] text-white text-xs font-bold rounded-xl hover:opacity-90 transition-all shadow-sm">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          <a href="https://instagram.com/pitchnestapp" target="_blank" class="flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-[#f09433] via-[#e6683c] to-[#bc1888] text-white text-xs font-bold rounded-xl hover:opacity-90 transition-all shadow-sm flex-1 sm:flex-initial">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
             Instagram
           </a>
-          <a href="https://facebook.com/pitchnestapp" target="_blank" class="flex items-center gap-2 px-4 py-2.5 bg-[#1877F2] text-white text-xs font-bold rounded-xl hover:bg-[#0d65d9] transition-all shadow-sm">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <a href="https://facebook.com/pitchnestapp" target="_blank" class="flex items-center justify-center gap-2 px-3 py-2 bg-[#1877F2] text-white text-xs font-bold rounded-xl hover:bg-[#0d65d9] transition-all shadow-sm flex-1 sm:flex-initial">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             Facebook
           </a>
         </div>
+        <a href="index.html" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white font-bold rounded-xl transition-all text-xs sm:text-sm shadow-sm mt-4 mx-auto w-44">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Homepage
+        </a>
       </div>
     </div>
   </div>
@@ -822,8 +951,18 @@
     function saveDraftToStorage() {
       const formData = new FormData(form);
       const data = {};
+      
+      // Pack multi-select checkbox values into arrays, keep others as strings
       for (let [key, val] of formData.entries()) {
-        data[key] = val;
+        if (key === 'biggest_challenge' || key === 'favorite_feature') {
+          if (data[key]) {
+            data[key].push(val);
+          } else {
+            data[key] = [val];
+          }
+        } else {
+          data[key] = val;
+        }
       }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
@@ -842,11 +981,17 @@
             if (key === 'startup_one_liner') {
               charCounter.textContent = `${val.length} / 150`;
             }
+            continue;
           }
-          // Fill checked radios
-          const radioInput = form.querySelector(`input[name="${key}"][value="${val}"]`);
-          if (radioInput) {
-            radioInput.checked = true;
+          // Fill checked options (radios or checkboxes)
+          if (Array.isArray(val)) {
+            val.forEach(v => {
+              const checkbox = form.querySelector(`input[name="${key}"][value="${v}"]`);
+              if (checkbox) checkbox.checked = true;
+            });
+          } else {
+            const input = form.querySelector(`input[name="${key}"][value="${val}"]`);
+            if (input) input.checked = true;
           }
         }
       } catch (e) {
@@ -860,6 +1005,39 @@
 
     // Load draft on mount
     loadDraftFromStorage();
+
+    // Theme toggle logic
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('pitchnest_theme');
+    
+    const applyTheme = (theme) => {
+      if (theme === 'light') {
+        document.documentElement.classList.add('light-theme');
+        document.body.classList.add('light-theme');
+      } else {
+        document.documentElement.classList.remove('light-theme');
+        document.body.classList.remove('light-theme');
+      }
+    };
+    
+    // Default theme for survey page is LIGHT
+    if (savedTheme === 'dark') {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        if (document.body.classList.contains('light-theme')) {
+          applyTheme('dark');
+          localStorage.setItem('pitchnest_theme', 'dark');
+        } else {
+          applyTheme('light');
+          localStorage.setItem('pitchnest_theme', 'light');
+        }
+      });
+    }
 
     // Step Rendering Function
     function renderStep() {
@@ -882,11 +1060,17 @@
       stepSubtitle.textContent = meta.subtitle;
       progressBar.style.width = `${meta.progress}%`;
 
-      // Back Button Visibility
+      // Back Button Label / Visibility
       if (currentStep === 1) {
         prevBtn.classList.add('invisible');
       } else {
         prevBtn.classList.remove('invisible');
+        prevBtn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back
+        `;
       }
 
       // Next Button Label / Submit
@@ -917,7 +1101,6 @@
 
       // Clear any custom alerts/highlight borders first
       inputs.forEach(input => {
-        let parent = input.closest('div.relative') || input.closest('label') || input.parentElement;
         if (input.type === 'radio') {
           // Check if at least one option in the radio group is checked
           const groupName = input.name;
@@ -946,8 +1129,38 @@
         }
       });
 
+      // Custom multi-select checkbox validation for Steps 3 and 4
+      if (currentStep === 3) {
+        const checkedBoxes = form.querySelectorAll('input[name="biggest_challenge"]:checked');
+        const challengeContainer = form.querySelector('input[name="biggest_challenge"]').closest('.space-y-3');
+        if (checkedBoxes.length === 0) {
+          isValid = false;
+          if (challengeContainer) {
+            challengeContainer.classList.add('ring-1', 'ring-rose-500/50', 'rounded-2xl', 'p-3', 'bg-rose-950/10');
+          }
+        } else {
+          if (challengeContainer) {
+            challengeContainer.classList.remove('ring-1', 'ring-rose-500/50', 'rounded-2xl', 'p-3', 'bg-rose-950/10');
+          }
+        }
+      }
+
+      if (currentStep === 4) {
+        const checkedBoxes = form.querySelectorAll('input[name="favorite_feature"]:checked');
+        const featureContainer = form.querySelector('input[name="favorite_feature"]').closest('.space-y-3');
+        if (checkedBoxes.length === 0) {
+          isValid = false;
+          if (featureContainer) {
+            featureContainer.classList.add('ring-1', 'ring-rose-500/50', 'rounded-2xl', 'p-3', 'bg-rose-950/10');
+          }
+        } else {
+          if (featureContainer) {
+            featureContainer.classList.remove('ring-1', 'ring-rose-500/50', 'rounded-2xl', 'p-3', 'bg-rose-950/10');
+          }
+        }
+      }
+
       if (!isValid) {
-        // Soft vibratory feedback or alert
         alert("Please answer all the required questions before continuing.");
       }
 
@@ -987,6 +1200,10 @@
         const formData = new FormData(form);
         const email = formData.get('email') || 'unknown';
 
+        // Extract checkboxes as arrays
+        const biggestChallenges = Array.from(form.querySelectorAll('input[name="biggest_challenge"]:checked')).map(cb => cb.value);
+        const favoriteFeatures = Array.from(form.querySelectorAll('input[name="favorite_feature"]:checked')).map(cb => cb.value);
+
         // Pack the rich validation questions & contact info into frustration JSON string
         const frustrationData = {
           full_name: formData.get('full_name'),
@@ -994,9 +1211,9 @@
           linkedin: formData.get('linkedin'),
           pitched_before: formData.get('pitched_before'),
           confidence: formData.get('confidence'),
-          biggest_challenge: formData.get('biggest_challenge'),
+          biggest_challenge: biggestChallenges,
           valuable_rating: formData.get('valuable_rating'),
-          favorite_feature: formData.get('favorite_feature'),
+          favorite_feature: favoriteFeatures,
           will_pay: formData.get('will_pay'),
           expected_pay: formData.get('expected_pay'),
           startup_one_liner: formData.get('startup_one_liner')
