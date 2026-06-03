@@ -1226,12 +1226,21 @@
           next_pitch: formData.get('next_pitch') || 'Unknown'
         };
 
-        // Upsert row inside Supabase 'waitlist' table
-        const { data, error } = await supabaseClient
-          .from('waitlist')
-          .upsert([payload], { onConflict: 'email' });
+        // Submit to backend API endpoint instead of calling Supabase directly
+        const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+          ? 'http://localhost:3000'
+          : 'https://pitchnest-live.onrender.com';
 
-        if (error) throw error;
+        const res = await fetch(`${BACKEND_URL}/api/survey`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || 'Server error');
+        }
 
         // Clear local storage draft upon successful completion
         localStorage.removeItem(STORAGE_KEY);
