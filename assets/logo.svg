@@ -1,1 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 1080"><defs><style>.cls-1,.cls-2{fill:#fff;}.cls-2{font-family:Poppins-Black, Poppins;font-size:104.86px;font-weight:800;}.cls-3{fill:url(#linear-gradient);mix-blend-mode:multiply;}.cls-4{isolation:isolate;}</style><linearGradient id="linear-gradient" x1="-7.52" y1="1076.74" x2="1089.76" y2="1.06" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs><g class="cls-4"><g id="Layer_1"><rect class="cls-3" x="0" y="0" width="1080" height="1080"/><text class="cls-2" transform="translate(242.68 721.91)"><tspan x="0" y="0">PITCHNEST</tspan></text><path class="cls-1" d="m656.56,471.8c11.39-27.11-4.32-60.12-33.76-73.78-28.56-13.24-60.82-.49-74.85,21.69-13.02,20.59-75.27,129.68-75.27,129.68,6.91,13.37,18.33,25.4,32.11,35.19,18.61-32.31,51.46-89.23,83.61-144.96,9.71-9.09,29.44,3.06,27.59,15.93-31.28,54.2-64.43,111.62-83.37,144.46,15.11,6.35,31.17,10.2,46.37,10.76,0,0,70.19-121.42,77.56-138.97Z"/><path class="cls-1" d="m649.47,300.49c-69.19-23.11-149.28,4.27-185.95,65.04-20.51,33.98-99.65,171.16-144.06,248.26h71.45c38.3-66.31,87.91-152.08,104.46-180.2,10.32-17.53,20.31-36.04,34.17-50.53,34.97-36.57,92.42-38.29,132.29-6.34,36.69,29.4,47.39,86.24,24.02,125.99-20.31,34.54-62.18,107.97-63.28,110.46,56.75-7.81,102.68-43.88,125.21-96.94,36.78-86.63-8.91-185.86-98.31-215.72Z"/></g></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        font-family: Poppins-Black, Poppins;
+        font-size: 150.56px;
+        font-weight: 800;
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="152.83" y1="919.55" x2="928.76" y2="158.89" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#0ea5e9"/>
+    </linearGradient>
+  </defs>
+  <circle class="cls-3" cx="540" cy="540" r="540"/>
+  <g>
+    <text class="cls-2" transform="translate(113.09 801.21)"><tspan x="0" y="0">PITCHNEST</tspan></text>
+    <g>
+      <path class="cls-1" d="m707.36,442.08c16.36-38.93-6.2-86.33-48.48-105.94-41.01-19.02-87.33-.71-107.47,31.14-18.7,29.57-108.08,186.2-108.08,186.2,9.93,19.21,26.32,36.47,46.11,50.54,26.73-46.39,73.89-128.12,120.06-208.15,13.94-13.05,42.27,4.39,39.62,22.88-44.92,77.82-92.52,160.27-119.71,207.43,21.69,9.12,44.76,14.64,66.58,15.45,0,0,100.78-174.35,111.37-199.55Z"/>
+      <path class="cls-1" d="m697.18,196.09c-99.34-33.19-214.36,6.14-267.01,93.39-29.45,48.8-143.09,245.76-206.86,356.47h102.6c55-95.22,126.23-218.38,150-258.74,14.82-25.17,29.16-51.74,49.07-72.56,50.21-52.51,132.7-54.99,189.96-9.11,52.68,42.21,68.05,123.84,34.49,180.9-29.17,49.6-89.28,155.04-90.86,158.6,81.49-11.22,147.44-63.01,179.79-139.19,52.81-124.39-12.8-266.88-141.17-309.76Z"/>
+    </g>
+  </g>
+</svg>
