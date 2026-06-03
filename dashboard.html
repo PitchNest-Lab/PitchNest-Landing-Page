@@ -64,22 +64,50 @@
           </p>
         </div>
 
-        <!-- Auth gate (simple UI-level; secure with RLS on DB) -->
-        <div id="authGate" class="benchmark-card" style="display:none; padding:2rem; margin-bottom: 1.5rem;">
-          <h3 style="margin-bottom:0.75rem;">Admin access required</h3>
-          <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-            This dashboard is protected only at the UI layer. Ensure you also enforce access with Supabase RLS.
-          </p>
-          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
-            <input id="adminPassword" type="password" placeholder="Enter dashboard password" class="waitlist-input" style="max-width: 320px;" />
-            <button id="unlockBtn" class="btn btn-primary" style="padding:0.75rem 1.25rem;">Unlock</button>
+        <!-- Auth gate (Supabase Auth + admin verification) -->
+        <div id="authGate" class="benchmark-card" style="display:block; padding:2rem; margin-bottom: 1.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
+            <div>
+              <h3 style="margin-bottom:0.5rem;">PitchNest Admin Analytics</h3>
+              <p style="color: var(--text-secondary); margin-bottom: 1rem; max-width: 680px;">
+                Sign in to view real-time analytics. Access is verified against the <code style="font-family:inherit;">admin_users</code> table (role: owner/admin/analyst).
+              </p>
+            </div>
+            <div style="display:flex; gap:0.75rem; align-items:center;">
+              <div id="authStatusPill" style="color: var(--text-muted); font-weight:900; font-size:0.8rem;">Checking…</div>
+            </div>
           </div>
-          <p style="color: var(--text-muted); font-size:0.85rem; margin-top:0.75rem;">
-            To secure properly, add RLS policies for the waitlist table and restrict which roles can read it.
-          </p>
+
+          <div id="loginPanel" style="display:block;">
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
+              <input id="loginEmail" type="email" placeholder="Admin email" class="waitlist-input" style="max-width: 360px;" />
+              <button id="sendMagicLinkBtn" class="btn btn-primary" style="padding:0.75rem 1.25rem;">Send Magic Link</button>
+            </div>
+            <p style="color: var(--text-muted); font-size:0.85rem; margin-top:0.75rem;">
+              Use your admin email to receive a secure sign-in link.
+            </p>
+          </div>
+
+          <div id="accessDeniedPanel" style="display:none;">
+            <h3 style="margin:0 0 0.75rem; color:#ef4444;">Access Denied</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+              Your account is not listed in <code style="font-family:inherit;">admin_users</code>.
+            </p>
+          </div>
+
+          <div id="loggedInPanel" style="display:none;">
+            <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; align-items:center;">
+              <div>
+                <div style="color: var(--text-secondary); font-weight:900; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Signed in</div>
+                <div id="adminEmailLabel" style="font-size:1.1rem; font-weight:900; margin-top:0.25rem;">—</div>
+              </div>
+              <button id="logoutBtn" class="btn btn-outline" style="padding:0.75rem 1.25rem;">Logout</button>
+            </div>
+          </div>
         </div>
 
         <!-- Dashboard grid -->
+
         <div id="dashboardShell" style="display:none;">
           <!-- Overview Metrics -->
           <div class="features-grid" style="grid-template-columns:1fr; gap:1.25rem; margin-bottom:1.5rem;">

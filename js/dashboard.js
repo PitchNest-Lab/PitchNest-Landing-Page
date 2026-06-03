@@ -13,15 +13,13 @@
     table: 'waitlist',
     jsonField: 'frustration',
 
-    // Admin access
-    // NOTE: Without Auth + RLS, any UI gate is not real security.
-    // This value is only used for UX gating.
+    // Admin access (Supabase Auth + admin_users verification)
+    // NOTE: without Supabase RLS, you may still see unauthorized data.
     admin: {
-      enabled: true,
-      // Replace in production with Supabase Auth role checks + RLS policies.
-      uiPassword: 'admin'
+      enabled: true
     }
   };
+
 
   const SUPABASE_URL = CONFIG.supabaseUrl;
   const SUPABASE_ANON_KEY = CONFIG.supabaseAnonKey;
@@ -31,11 +29,18 @@
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
     : null;
 
-  // If supabase CDN isn't loaded, show a hard error.
+  // Supabase Auth gate elements (dashboard access)
   const root = document.getElementById('dashboardShell');
   const authGate = document.getElementById('authGate');
-  const unlockBtn = document.getElementById('unlockBtn');
-  const adminPassword = document.getElementById('adminPassword');
+  const authStatusPill = document.getElementById('authStatusPill');
+  const loginPanel = document.getElementById('loginPanel');
+  const accessDeniedPanel = document.getElementById('accessDeniedPanel');
+  const loggedInPanel = document.getElementById('loggedInPanel');
+  const adminEmailLabel = document.getElementById('adminEmailLabel');
+  const loginEmail = document.getElementById('loginEmail');
+  const sendMagicLinkBtn = document.getElementById('sendMagicLinkBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+
 
   const statusPill = document.getElementById('statusPill');
   const loadingState = document.getElementById('loadingState');
@@ -683,47 +688,164 @@
     closeModalBtn?.addEventListener('click', closeResponseModal);
   }
 
-  function setupAuthGate() {
-    // UI-layer only gate. Must still rely on DB RLS.
-    // If you have real auth already, replace this with role-based checks.
+  function showGateLoading(msg) {
+    if (authStatusPill) authStatusPill.textContent = msg || 'Checking…';
+  }
 
-    const hasGate = Boolean(authGate) && Boolean(unlockBtn) && Boolean(adminPassword);
-    if (!hasGate) {
-      state.unlocked = true;
-      if (root) root.style.display = 'block';
-      refreshDashboard();
-      setupRealtime();
-      return;
+  function showGateAccessDenied(msg) {
+    if (!accessDeniedPanel) return;
+    accessDeniedPanel.style.display = 'block';
+    loginPanel && (loginPanel.style.display = 'none');
+    loggedInPanel && (loggedInPanel.style.display = 'none');
+    if (authStatusPill) authStatusPill.textContent = msg || 'Access Denied';
+  }
+
+  function showGateLoggedIn(email) {
+    if (!loggedInPanel) return;
+    loginPanel && (loginPanel.style.display = 'none');
+    accessDeniedPanel && (accessDeniedPanel.style.display = 'none');
+    loggedInPanel.style.display = 'block';
+    if (adminEmailLabel) adminEmailLabel.textContent = email || '—';
+    showGateLoading('');
+  }
+
+  function setDashboardVisible(on) {
+    if (!root) return;
+    root.style.display = on ? 'block' : 'none';
+  }
+
+  async function verifyAdminUser(user) {
+    // Verify against admin_users by email.
+    // Assumes RLS is configured to allow authenticated clients to read their own admin_users row.
+    if (!user?.email) return { ok: false, reason: 'missing_email' };
+
+    const { data, error } = await supabaseClient
+      .from('admin_users')
+      .select('email, role')
+      .eq('email', user.email)
+      .maybeSingle();
+
+    if (error) {
+      return { ok: false, reason: error.message || 'admin_lookup_failed' };
     }
+
+    if (!data) return { ok: false, reason: 'not_in_admin_users' };
+    return { ok: true, role: data.role };
+  }
+
+  function setupAuthGate() {
+    // Supabase Auth gate (magic link) + admin verification.
+    if (!authGate || !supabaseClient) return;
 
     authGate.style.display = 'block';
 
-    // Default: unlocked if query param ?admin=1 (local convenience)
-    const url = new URL(window.location.href);
-    if (url.searchParams.get('admin') === '1') {
-      state.unlocked = true;
-      authGate.style.display = 'none';
-      if (root) root.style.display = 'block';
-      refreshDashboard();
-      setupRealtime();
-      return;
+    const { auth } = supabaseClient;
+
+    // Login: send magic link
+    if (sendMagicLinkBtn && loginEmail) {
+      sendMagicLinkBtn.addEventListener('click', async () => {
+        const email = (loginEmail.value || '').trim();
+        if (!email) {
+          alert('Enter an admin email address.');
+          return;
+        }
+        showGateLoading('Sending magic link…');
+        try {
+          const { error } = await auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
+          if (error) throw error;
+          showGateLoading('Check your inbox for the sign-in link.');
+        } catch (e) {
+          showGateAccessDenied(e?.message || 'Failed to send magic link');
+        }
+      });
     }
 
-    unlockBtn.addEventListener('click', async () => {
-      // Placeholder password check (do NOT rely on this for real security)
-      // Adjust to your needs.
-      const pwd = adminPassword.value || '';
-      if (pwd === 'admin') {
-        state.unlocked = true;
-        authGate.style.display = 'none';
-        if (root) root.style.display = 'block';
-        refreshDashboard();
-        setupRealtime();
-      } else {
-        alert('Invalid password. NOTE: replace UI gate with Supabase Auth + RLS for real security.');
+    // Logout
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          await auth.signOut();
+        } finally {
+          state.unlocked = false;
+          setDashboardVisible(false);
+          authGate.style.display = 'block';
+          if (accessDeniedPanel) accessDeniedPanel.style.display = 'none';
+          if (loggedInPanel) loggedInPanel.style.display = 'none';
+          if (loginPanel) loginPanel.style.display = 'block';
+          showGateLoading('Checking…');
+        }
+      });
+    }
+
+    // On load: determine current session
+    showGateLoading('Checking…');
+
+    auth.getSession().then(async ({ data: { session } }) => {
+      const user = session?.user;
+      if (!user) {
+        // Not logged in
+        state.unlocked = false;
+        setDashboardVisible(false);
+        if (loginPanel) loginPanel.style.display = 'block';
+        if (accessDeniedPanel) accessDeniedPanel.style.display = 'none';
+        if (loggedInPanel) loggedInPanel.style.display = 'none';
+        showGateLoading('Sign in required');
+        return;
       }
+
+      const result = await verifyAdminUser(user);
+      if (!result.ok) {
+        state.unlocked = false;
+        setDashboardVisible(false);
+        showGateAccessDenied();
+        return;
+      }
+
+      state.unlocked = true;
+      authGate.style.display = 'none';
+      setDashboardVisible(true);
+      showGateLoggedIn(user.email);
+
+      refreshDashboard();
+      setupRealtime();
+    }).catch((e) => {
+      state.unlocked = false;
+      setDashboardVisible(false);
+      showGateAccessDenied(e?.message || 'Auth check failed');
+    });
+
+    // Listen for auth changes
+    auth.onAuthStateChange(async (event, session) => {
+      const user = session?.user;
+      if (!user) {
+        state.unlocked = false;
+        setDashboardVisible(false);
+        authGate.style.display = 'block';
+        if (loginPanel) loginPanel.style.display = 'block';
+        if (accessDeniedPanel) accessDeniedPanel.style.display = 'none';
+        if (loggedInPanel) loggedInPanel.style.display = 'none';
+        showGateLoading('Sign in required');
+        return;
+      }
+
+      const result = await verifyAdminUser(user);
+      if (!result.ok) {
+        state.unlocked = false;
+        setDashboardVisible(false);
+        showGateAccessDenied();
+        return;
+      }
+
+      state.unlocked = true;
+      authGate.style.display = 'none';
+      setDashboardVisible(true);
+      showGateLoggedIn(user.email);
+
+      refreshDashboard();
+      setupRealtime();
     });
   }
+
 
   function loadSupabaseIfNeeded() {
     // dashboard.html currently doesn't include the supabase CDN.
