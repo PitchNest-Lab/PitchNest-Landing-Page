@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PitchNest — Analytics Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Floating Theme Toggle -->
+  <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+    <svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l-.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+    </svg>
+    <svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+    </svg>
+  </button>
+
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+            <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+          </svg>
+        </div>
+        <span class="logo-text">PitchNest</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="survey.html">Submit Survey</a>
+      </div>
+
+      <!-- Hamburger Toggle Button (mobile only) -->
+      <button class="hamburger-btn" id="hamburger-toggle" aria-label="Toggle Navigation Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-inner">
+        <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
+        <a href="survey.html" class="mobile-nav-link">Submit Survey</a>
+      </div>
+    </div>
+  </nav>
+
+  <main style="padding-top: 5.5rem;">
+    <section class="features" style="padding-top: 2.5rem;">
+      <div class="container">
+        <div class="section-header" style="text-align:left; max-width: 70rem;">
+          <span class="section-label">Analytics</span>
+          <h2 class="section-title" style="margin-bottom:0.5rem;">Real-time Survey Insights</h2>
+          <p class="section-desc" style="max-width: 65rem;">
+            Premium Google-Forms-style analytics with real-time updates. Uses the existing Supabase anon client.
+          </p>
+        </div>
+
+        <!-- Auth gate (Supabase Auth + admin verification) -->
+        <div id="authGate" class="benchmark-card" style="display:block; padding:2rem; margin-bottom: 1.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
+            <div>
+              <h3 style="margin-bottom:0.5rem;">PitchNest Admin Analytics</h3>
+              <p style="color: var(--text-secondary); margin-bottom: 1rem; max-width: 680px;">
+                Sign in to view real-time analytics. Access is verified against the <code style="font-family:inherit;">admin_users</code> table (role: owner/admin/analyst).
+              </p>
+            </div>
+            <div style="display:flex; gap:0.75rem; align-items:center;">
+              <div id="authStatusPill" style="color: var(--text-muted); font-weight:900; font-size:0.8rem;">Checking…</div>
+            </div>
+          </div>
+
+          <div id="loginPanel" style="display:block;">
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
+              <input id="loginEmail" type="email" placeholder="Admin email" class="waitlist-input" style="max-width: 360px;" />
+              <button id="sendMagicLinkBtn" class="btn btn-primary" style="padding:0.75rem 1.25rem;">Send Magic Link</button>
+            </div>
+            <p style="color: var(--text-muted); font-size:0.85rem; margin-top:0.75rem;">
+              Use your admin email to receive a secure sign-in link.
+            </p>
+          </div>
+
+          <div id="accessDeniedPanel" style="display:none;">
+            <h3 style="margin:0 0 0.75rem; color:#ef4444;">Access Denied</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+              Your account is not listed in <code style="font-family:inherit;">admin_users</code>.
+            </p>
+          </div>
+
+          <div id="loggedInPanel" style="display:none;">
+            <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; align-items:center;">
+              <div>
+                <div style="color: var(--text-secondary); font-weight:900; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">Signed in</div>
+                <div id="adminEmailLabel" style="font-size:1.1rem; font-weight:900; margin-top:0.25rem;">—</div>
+              </div>
+              <button id="logoutBtn" class="btn btn-outline" style="padding:0.75rem 1.25rem;">Logout</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard grid -->
+
+        <div id="dashboardShell" style="display:none;">
+          <!-- Overview Metrics -->
+          <div class="features-grid" style="grid-template-columns:1fr; gap:1.25rem; margin-bottom:1.5rem;">
+            <div class="feature-card" style="padding:1.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
+                <div>
+                  <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Total submissions</div>
+                  <div style="font-size:2rem; font-weight:900; margin-top:0.5rem;" id="metricTotal">—</div>
+                </div>
+                <div style="color:#10b981; font-weight:900;">↗</div>
+              </div>
+            </div>
+
+            <div class="feature-card" style="padding:1.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
+                <div>
+                  <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Submissions today</div>
+                  <div style="font-size:2rem; font-weight:900; margin-top:0.5rem;" id="metricToday">—</div>
+                </div>
+                <div style="color:#0ea5e9; font-weight:900;">Today</div>
+              </div>
+            </div>
+
+            <div class="feature-card" style="padding:1.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
+                <div>
+                  <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Submissions this week</div>
+                  <div style="font-size:2rem; font-weight:900; margin-top:0.5rem;" id="metricWeek">—</div>
+                </div>
+                <div style="color:#6366f1; font-weight:900;">Week</div>
+              </div>
+            </div>
+
+            <div class="feature-card" style="padding:1.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
+                <div>
+                  <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Conversion rate</div>
+                  <div style="font-size:2rem; font-weight:900; margin-top:0.5rem;" id="metricConversion">—</div>
+                </div>
+                <div style="color:#f59e0b; font-weight:900;">%</div>
+              </div>
+              <div style="margin-top:0.5rem; color: var(--text-secondary); font-size:0.9rem;" id="metricConversionHint"></div>
+            </div>
+
+            <div class="feature-card" style="padding:1.5rem; grid-column: 1 / -1;">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+                <div>
+                  <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Most recent submission</div>
+                  <div style="font-size:1.2rem; font-weight:900; margin-top:0.5rem;" id="metricRecent">—</div>
+                </div>
+
+                <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
+                  <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <label style="color: var(--text-muted); font-weight:800; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">Date range</label>
+                    <select id="dateRange" class="health-select" style="margin:0; padding:0.6rem 0.9rem;">
+                      <option value="7d">Last 7 days</option>
+                      <option value="30d">Last 30 days</option>
+                      <option value="90d">Last 90 days</option>
+                      <option value="all">All time</option>
+                    </select>
+                  </div>
+
+                  <button id="exportCsvBtn" class="btn btn-outline" style="padding:0.75rem 1rem;">Export CSV</button>
+                </div>
+              </div>
+
+              <div class="health-results-grid" style="grid-template-columns:1fr; margin-top:1rem;">
+                <div class="health-col active" style="display:block;">
+                  <div class="health-input-group" style="margin:0; flex-direction:column;">
+                    <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                      <div style="flex:1; min-width: 220px;">
+                        <label style="display:block; font-size:0.75rem; font-weight:800; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.35rem;">Search</label>
+                        <input id="searchText" type="text" placeholder="Name / email / LinkedIn" class="health-select" style="width:100%;" />
+                      </div>
+                      <div style="flex:1; min-width: 220px;">
+                        <label style="display:block; font-size:0.75rem; font-weight:800; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.35rem;">Filter by pitched before</label>
+                        <select id="filterPitchedBefore" class="health-select" style="width:100%;">
+                          <option value="all">All</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                      <div style="flex:1; min-width: 220px;">
+                        <label style="display:block; font-size:0.75rem; font-weight:800; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.35rem;">Filter by will pay</label>
+                        <select id="filterWillPay" class="health-select" style="width:100%;">
+                          <option value="all">All</option>
+                          <option value="Yes">Yes</option>
+                          <option value="Maybe">Maybe</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style="display:flex; justify-content:flex-end;">
+                      <button id="applyFiltersBtn" class="btn btn-primary" style="padding:0.75rem 1.25rem;">Apply Filters</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="features-grid" style="grid-template-columns:1fr; gap:1.25rem; margin-top: 1.5rem; margin-bottom:1.5rem;">
+            <div class="feature-card" style="padding:1.25rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem;">
+                <div>
+                  <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Submissions over time</div>
+                  <div style="font-size:1.1rem; font-weight:900; margin-top:0.35rem;">Daily buckets</div>
+                </div>
+              </div>
+              <div style="height:260px; margin-top: 0.75rem;">
+                <canvas id="chartSubmissions"></canvas>
+              </div>
+            </div>
+
+            <div class="feature-card" style="padding:1.25rem;">
+              <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Biggest challenge breakdown</div>
+              <div style="font-size:1.1rem; font-weight:900; margin-top:0.35rem;">Multi-choice counts</div>
+              <div style="height:260px; margin-top: 0.75rem;">
+                <canvas id="chartBiggestChallenge"></canvas>
+              </div>
+            </div>
+
+            <div class="feature-card" style="padding:1.25rem;">
+              <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Favorite feature breakdown</div>
+              <div style="font-size:1.1rem; font-weight:900; margin-top:0.35rem;">Multi-choice counts</div>
+              <div style="height:260px; margin-top: 0.75rem;">
+                <canvas id="chartFavoriteFeatures"></canvas>
+              </div>
+            </div>
+
+            <div class="feature-card" style="padding:1.25rem;">
+              <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Yes/No splits</div>
+              <div style="font-size:1.1rem; font-weight:900; margin-top:0.35rem;">Pitched before + will pay</div>
+              <div style="height:260px; margin-top: 0.75rem;">
+                <canvas id="chartSplits"></canvas>
+              </div>
+            </div>
+
+            <div class="feature-card" style="padding:1.25rem;">
+              <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Lead quality proxy</div>
+              <div style="font-size:1.1rem; font-weight:900; margin-top:0.35rem;">Valuable rating distribution</div>
+              <div style="height:260px; margin-top: 0.75rem;">
+                <canvas id="chartLeadQuality"></canvas>
+              </div>
+              <div style="color: var(--text-secondary); font-size:0.9rem; margin-top:0.75rem;">
+                Lead quality is derived from <code style="font-family:inherit;">frustration.valuable_rating</code> (1–5).
+              </div>
+            </div>
+          </div>
+
+          <!-- Table + Loading/Error/Empty -->
+          <div class="feature-card" style="padding:1.25rem; margin-bottom: 2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+              <div>
+                <div style="color: var(--text-muted); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Live responses</div>
+                <div style="font-size:1.1rem; font-weight:900; margin-top:0.35rem;">Real-time submissions</div>
+              </div>
+              <div id="statusPill" style="color: var(--text-secondary); font-weight:800; font-size:0.85rem;">Connecting…</div>
+            </div>
+
+            <div id="loadingState" style="display:none; padding: 1.25rem 0; color: var(--text-secondary);">Loading…</div>
+            <div id="errorState" style="display:none; padding: 1.25rem 0; color: #ef4444; font-weight:700;"></div>
+            <div id="emptyState" style="display:none; padding: 1.25rem 0; color: var(--text-secondary);">
+              No submissions match the selected filters.
+            </div>
+
+            <div style="overflow:auto; margin-top: 1rem; border:1px solid var(--border-color); border-radius: 0.85rem;">
+              <table class="leaderboard-table" style="min-width: 980px;">
+                <thead>
+                  <tr style="background: rgba(255,255,255,0.03);">
+                    <th style="text-align:left; padding: 0.9rem 1rem; color: var(--text-muted); font-weight:900; font-size:0.8rem;">Time</th>
+                    <th style="text-align:left; padding: 0.9rem 1rem; color: var(--text-muted); font-weight:900; font-size:0.8rem;">Name</th>
+                    <th style="text-align:left; padding: 0.9rem 1rem; color: var(--text-muted); font-weight:900; font-size:0.8rem;">Email</th>
+                    <th style="text-align:left; padding: 0.9rem 1rem; color: var(--text-muted); font-weight:900; font-size:0.8rem;">Country</th>
+                    <th style="text-align:left; padding: 0.9rem 1rem; color: var(--text-muted); font-weight:900; font-size:0.8rem;">Biggest challenge</th>
+                    <th style="text-align:left; padding: 0.9rem 1rem; color: var(--text-muted); font-weight:900; font-size:0.8rem;">Will pay</th>
+                    <th style="text-align:left; padding: 0.9rem 1rem; color: var(--text-muted); font-weight:900; font-size:0.8rem;">Valuable rating</th>
+                    <th style="text-align:right; padding: 0.9rem 1rem; color: var(--text-muted); font-weight:900; font-size:0.8rem;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="responsesTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: individual response viewer -->
+  <div id="responseModal" style="display:none; position:fixed; inset:0; background: rgba(0,0,0,0.6); z-index: 2000; align-items:center; justify-content:center; padding: 1.25rem;">
+    <div class="feature-card" style="max-width: 900px; width: 100%; padding: 1.25rem; background: var(--card-bg);">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
+        <div>
+          <div style="color: var(--text-muted); font-weight:900; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Response</div>
+          <div id="modalTitle" style="font-size:1.2rem; font-weight:900; margin-top:0.35rem;">—</div>
+          <div id="modalSubtitle" style="color: var(--text-secondary); margin-top:0.25rem;">—</div>
+        </div>
+        <button id="closeModalBtn" class="btn btn-outline" style="padding:0.5rem 0.9rem;">Close</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr; gap:1rem; margin-top: 1rem;">
+        <div class="feature-card" style="padding:1rem; box-shadow:none; margin:0;">
+          <div style="color: var(--text-muted); font-weight:900; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Contact</div>
+          <div id="modalContact" style="margin-top:0.5rem; color: var(--text-primary); font-weight:700; font-size:0.95rem;"></div>
+        </div>
+
+        <div class="feature-card" style="padding:1rem; box-shadow:none; margin:0;">
+          <div style="color: var(--text-muted); font-weight:900; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Frustration JSON (pretty)</div>
+          <pre id="modalFrustration" style="white-space:pre-wrap; word-break:break-word; background: rgba(0,0,0,0.2); border:1px solid var(--border-color); border-radius: 0.85rem; padding: 0.9rem; margin-top:0.75rem; color: var(--text-primary); font-size:0.85rem;"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme default parity with existing pages
+    (function(){
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      if (!themeToggleBtn) return;
+      const savedTheme = localStorage.getItem('pitchnest_theme');
+      const applyTheme = (theme) => {
+        if (theme === 'light') {
+          document.documentElement.classList.add('light-theme');
+          document.body.classList.add('light-theme');
+        } else {
+          document.documentElement.classList.remove('light-theme');
+          document.body.classList.remove('light-theme');
+        }
+      };
+      if (savedTheme === 'light') applyTheme('light');
+      else if (savedTheme === 'dark') applyTheme('dark');
+      else applyTheme('dark');
+
+      themeToggleBtn.addEventListener('click', () => {
+        if (document.body.classList.contains('light-theme')) {
+          applyTheme('dark');
+          localStorage.setItem('pitchnest_theme','dark');
+        } else {
+          applyTheme('light');
+          localStorage.setItem('pitchnest_theme','light');
+        }
+      });
+    })();
+
+    // Mobile hamburger drawer behavior
+    (function(){
+      const hamburgerToggle = document.getElementById('hamburger-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+      if (hamburgerToggle && mobileMenu) {
+        hamburgerToggle.addEventListener('click', () => {
+          hamburgerToggle.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+        });
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            hamburgerToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+          });
+        });
+      }
+    })();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
+
+
