@@ -6,11 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeToggleBtn = document.getElementById('theme-toggle');
   
   if (themeToggleBtn) {
-    const savedTheme = localStorage.getItem('pitchnest_theme');
-    
-    // Landing page defaults to DARK, Onboarding defaults to LIGHT
-    const isSurveyPage = window.location.pathname.includes('survey.html');
-    
     const applyTheme = (theme) => {
       if (theme === 'light') {
         document.documentElement.classList.add('light-theme');
@@ -21,18 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
     
-    if (savedTheme === 'light') {
-      applyTheme('light');
-    } else if (savedTheme === 'dark') {
-      applyTheme('dark');
-    } else {
-      // No preference saved:
-      if (isSurveyPage) {
-        applyTheme('light'); // Survey page defaults to light
-      } else {
-        applyTheme('dark'); // Landing page defaults to dark
-      }
-    }
+    // Always start with the light theme
+    applyTheme('light');
+    localStorage.setItem('pitchnest_theme', 'light');
 
     themeToggleBtn.addEventListener('click', () => {
       if (document.body.classList.contains('light-theme')) {
@@ -220,6 +206,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = vcDebates[vcKey];
 
         if (data) {
+          // Track Facebook Pixel ViewContent event
+          if (typeof fbq === 'function') {
+            fbq('track', 'ViewContent', {
+              content_name: 'AI Investor Debate',
+              content_category: vcKey
+            });
+          }
           // Update headers
           activeVcTitle.textContent = `${data.name} — ${data.role}`;
           activeVcSub.textContent = data.sub;
@@ -389,6 +382,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = healthData[selectedKey];
 
       if (data) {
+        // Track Facebook Pixel Search event for running a health audit
+        if (typeof fbq === 'function') {
+          fbq('track', 'Search', {
+            search_string: selectedKey,
+            content_category: 'Startup Health Audit'
+          });
+        }
         // Show spinner / loading mockup
         runHealthBtn.innerHTML = `
           Analyzing Model... 
@@ -453,6 +453,14 @@ document.addEventListener('DOMContentLoaded', () => {
           const originalText = btn.innerHTML;
           btn.innerHTML = 'Locking Spot...';
           btn.disabled = true;
+
+          // Track Facebook Pixel Lead event
+          if (typeof fbq === 'function') {
+            fbq('track', 'Lead', {
+              content_category: 'Waitlist',
+              email: email
+            });
+          }
 
           // Show welcome toast
           if (toast) {

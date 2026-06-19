@@ -6,6 +6,29 @@
   <title>PitchNest — Analytics Dashboard</title>
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
   <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    (function() {
+      // Always start with the light theme
+      document.documentElement.classList.add('light-theme');
+    })();
+  </script>
+  <!-- Facebook Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1037542538754341');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1037542538754341&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Facebook Pixel Code -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
@@ -334,9 +357,9 @@
           document.body.classList.remove('light-theme');
         }
       };
-      if (savedTheme === 'light') applyTheme('light');
-      else if (savedTheme === 'dark') applyTheme('dark');
-      else applyTheme('dark');
+      // Always start with light theme
+      applyTheme('light');
+      localStorage.setItem('pitchnest_theme', 'light');
 
       themeToggleBtn.addEventListener('click', () => {
         if (document.body.classList.contains('light-theme')) {

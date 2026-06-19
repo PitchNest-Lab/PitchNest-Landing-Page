@@ -16,6 +16,29 @@
   <meta name="twitter:image" content="https://pitchnestlandingpage.vercel.app/assets/logo.png" />
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
   <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    (function() {
+      // Always start with the light theme
+      document.documentElement.classList.add('light-theme');
+    })();
+  </script>
+  <!-- Facebook Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1037542538754341');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1037542538754341&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Facebook Pixel Code -->
   <!-- Google Fonts: Outfit & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,7 +107,7 @@
     }
 
     /* Light theme overrides for survey.html */
-    body.light-theme {
+    html.light-theme, body.light-theme {
       background-color: #f1f5f9;
       color: #0f172a;
     }
@@ -127,7 +150,7 @@
       background-color: rgba(226, 232, 240, 0.8) !important;
       border-color: rgba(203, 213, 225, 0.8) !important;
     }
-    .light-theme .text-slate-200 {
+    .light-theme .text-slate-200, .light-theme .text-slate-300 {
       color: #1e293b !important;
     }
     .light-theme .text-slate-600 {
@@ -139,7 +162,7 @@
     .light-theme .bg-slate-900 {
       background-color: rgba(226, 232, 240, 1) !important;
     }
-    .light-theme .border-slate-800\/50, .light-theme .border-slate-800\/60 {
+    .light-theme .border-slate-800\/50, .light-theme .border-slate-800\/60, .light-theme .border-slate-800 {
       border-color: rgba(203, 213, 225, 0.8) !important;
     }
     .light-theme #successMessage h2, .light-theme #successMessage p, .light-theme #successMessage span {
@@ -237,47 +260,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2m-4-3.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <input type="text" name="country" list="countries-list" required placeholder="United States" class="w-full pl-11 pr-4 py-3.5 bg-slate-900/60 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-slate-100 placeholder:text-slate-600 transition-all">
-            <datalist id="countries-list">
-              <option value="United States">
-              <option value="United Kingdom">
-              <option value="Canada">
-              <option value="Australia">
-              <option value="Nigeria">
-              <option value="Germany">
-              <option value="France">
-              <option value="India">
-              <option value="Singapore">
-              <option value="Israel">
-              <option value="Netherlands">
-              <option value="Japan">
-              <option value="Brazil">
-              <option value="South Africa">
-              <option value="Spain">
-              <option value="Sweden">
-              <option value="Switzerland">
-              <option value="Ireland">
-              <option value="New Zealand">
-              <option value="United Arab Emirates">
-              <option value="Kenya">
-              <option value="Ghana">
-              <option value="Egypt">
-              <option value="Saudi Arabia">
-              <option value="Mexico">
-              <option value="Colombia">
-              <option value="Argentina">
-              <option value="Estonia">
-              <option value="Finland">
-              <option value="Norway">
-              <option value="Denmark">
-              <option value="Poland">
-              <option value="Turkey">
-              <option value="South Korea">
-              <option value="Indonesia">
-              <option value="Malaysia">
-              <option value="Philippines">
-              <option value="Vietnam">
-            </datalist>
+            <input type="text" name="country" required placeholder="United States" class="w-full pl-11 pr-4 py-3.5 bg-slate-900/60 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-slate-100 placeholder:text-slate-600 transition-all">
           </div>
         </div>
 
@@ -1027,12 +1010,9 @@
       }
     };
     
-    // Default theme for survey page is LIGHT
-    if (savedTheme === 'dark') {
-      applyTheme('dark');
-    } else {
-      applyTheme('light');
-    }
+    // Always start with the light theme
+    applyTheme('light');
+    localStorage.setItem('pitchnest_theme', 'light');
 
     if (themeToggleBtn) {
       themeToggleBtn.addEventListener('click', () => {
@@ -1252,6 +1232,14 @@
         // Clear local storage draft upon successful completion
         localStorage.removeItem(STORAGE_KEY);
 
+        // Track Facebook Pixel SubmitApplication event
+        if (typeof fbq === 'function') {
+          fbq('track', 'SubmitApplication', {
+            content_name: 'VIP Onboarding Survey',
+            status: 'Success'
+          });
+        }
+
         // Hide form and header blocks, display premium success message
         form.classList.add('hidden');
         document.getElementById('surveyHeader').classList.add('hidden');
@@ -1265,6 +1253,7 @@
         prevBtn.disabled = false;
       }
     }
+
 
     // Render initial Step 1 on mount
     renderStep();
