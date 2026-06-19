@@ -2267,3 +2267,46 @@ h1, h2, h3, h4 {
     display: none !important;
   }
 }
+
+/* 2-Column Mobile Grid for Harsh Realities & Chat Header overrides */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+@media (min-width: 768px) {
+  .problem-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+}
+@media (max-width: 480px) {
+  .problem-grid .feature-card {
+    padding: 1rem !important;
+  }
+  .problem-grid .feature-card h3 {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .problem-grid .feature-card p {
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
+  }
+  .problem-grid .feature-icon {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .problem-grid .feature-icon svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .chat-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+  .consensus-badge {
+    align-self: flex-start !important;
+  }
+}
